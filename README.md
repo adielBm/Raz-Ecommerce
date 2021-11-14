@@ -1,5 +1,5 @@
 # Raz Ecommerce
-This project is a front-end ecommerce built using Next.js, for Strapi Headless CMS.
+This project is a front-end ecommerce built using Next.js, for [Strapi](https://github.com/strapi/strapi) Headless CMS.
 
 ## Install
 ```sh
