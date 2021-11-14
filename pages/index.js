@@ -2,6 +2,7 @@ import { getProduct, getProducts } from '../utils/api'
 import { fromImageToUrl } from '../utils/fromImageToUrl'
 import Link from 'next/link'
 
+
 const HomePage = ({ products }) => {
 
   const product = getProduct('shirt')

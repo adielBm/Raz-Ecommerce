@@ -1,6 +1,7 @@
-import { API_URL } from "./api";
+import { API_URL } from './api'
 
 export const fromImageToUrl = (image) => {
+
     if (!image) {
       return "/vercel.svg"; //Or default image here
     }
