@@ -12,14 +12,14 @@ export async function fetchAPI(path) {
   return data;
 }
 
-export async function getCategories() {
-  const categories = await fetchAPI("/categories");
-  return categories;
+export async function getProductCategories() {
+  const productCategories = await fetchAPI("/product-categories");
+  return productCategories;
 }
 
-export async function getCategory(slug) {
-  const categories = await fetchAPI(`/categories?slug=${slug}`);
-  return categories?.[0];
+export async function getProductCategory(slug) {
+  const productCategories = await fetchAPI(`/product-categories?slug=${slug}`);
+  return productCategories?.[0];
 }
 
 export async function getProducts() {
