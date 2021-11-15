@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import client from "../../apollo/client";
-import { PRODUCTS_CATEGORY_BY_SLUG } from "../../apollo/queries";
+import { PRODUCTS_CATEGORIES, PRODUCTS_CATEGORY_BY_SLUG } from "../../apollo/queries";
 import ProductList from "../../components/ProductList"
 import { getProductCategories, getProductCategory } from "../../utils/api"
 
@@ -25,10 +25,15 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const productCategories = await getProductCategories()
-  const paths = productCategories.map((productCategory) => ({
+
+  const { data } = await client.query({
+    query: PRODUCTS_CATEGORIES
+  })
+  
+  const paths = data.productCategories.map((productCategory) => ({
     params: { slug: productCategory.slug },
   }))
+
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
   return { paths, fallback: false }
