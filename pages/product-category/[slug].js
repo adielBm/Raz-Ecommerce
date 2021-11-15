@@ -1,18 +1,16 @@
-import { useQuery } from "@apollo/client";
 import client from "../../apollo/client";
 import { PRODUCTS_CATEGORIES, PRODUCTS_CATEGORY_BY_SLUG } from "../../apollo/queries";
 import ProductList from "../../components/ProductList"
-import { getProductCategories, getProductCategory } from "../../utils/api"
 
 const ProductCategory = ({ data }) => {
   const productCategory =  data.productCategories[0]
   return (
     <div>
       <div className="review-card">
-        <h2> {productCategory.title} </h2>
+        <h2>{productCategory.title}</h2>
       </div>
       <ProductList products={productCategory.products} />
-    </div>
+    </div> 
   )
 }
 
