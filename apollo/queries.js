@@ -55,4 +55,25 @@ export const PRODUCTS = gql`
 `;
 
 
+export const PRODUCT_BY_SLUG = gql`
+query ProductBySlug($slug: ID!) {
+  products(where: {slug: $slug}  ) {
+      id,
+      title,
+      content,
+      price,
+      slug,
+      published_at,
+      image {
+        id,
+        url
+      },
+      product_categories {
+        id,
+        title,
+        slug,
+      }
+    }
+  }
+`;
 
