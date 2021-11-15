@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
+    "🚀 strapi develop": "npm --prefix ../Strapi/ run strapi develop",
+    "⚛️ next dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
