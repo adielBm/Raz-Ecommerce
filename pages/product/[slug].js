@@ -1,9 +1,10 @@
-import { getProduct, getProducts } from "../../utils/api"
 import { fromImageToUrl } from "../../utils/fromImageToUrl"
 import Link from 'next/link'
+import { PRODUCTS, PRODUCT_BY_SLUG } from "../../apollo/queries"
+import client from "../../apollo/client"
 
-const Product = ({ product, params }) => {
-  console.log('params', params)
+const Product = ({ data }) => {
+  const product = data.products[0]
   return (
     <div className="review-card">
       <img src={fromImageToUrl(product.image)} />
@@ -15,18 +16,26 @@ const Product = ({ product, params }) => {
       <h1>{`${product.price} $`}</h1>
     </div>
   )
-}
+} 
 
 export async function getStaticProps({ params }) {
-  const product = await getProduct(params.slug)
-  return { props: { product, params } }
+  const { data } = await client.query({
+    query: PRODUCT_BY_SLUG,
+    variables: {slug: params.slug}
+  })
+  return { props: { data } }
 }
 
 export async function getStaticPaths() {
-  const products = await getProducts()
-  const paths = products.map((product) => ({
+
+  const { data } = await client.query({
+    query: PRODUCTS
+  })
+  
+  const paths = data.products.map((product) => ({
     params: { slug: product.slug },
   }))
+
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
   return { paths, fallback: false }
