@@ -18,7 +18,7 @@ const Product = ({ data }) => {
   )
 } 
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const { data } = await client.query({
     query: PRODUCT_BY_SLUG,
     variables: {slug: params.slug}
@@ -26,7 +26,7 @@ export async function getStaticProps({ params }) {
   return { props: { data } }
 }
 
-export async function getStaticPaths() {
+/* export async function getStaticPaths() {
 
   const { data } = await client.query({
     query: PRODUCTS
@@ -39,6 +39,6 @@ export async function getStaticPaths() {
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
   return { paths, fallback: false }
-}
+} */
 
 export default Product

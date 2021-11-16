@@ -7,9 +7,10 @@ const HomePage = ({ data }) => {
   return (
     <ProductList products={data.products} />
   )
+  
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const { data } = await client.query({
     query: PRODUCTS
   })
