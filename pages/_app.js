@@ -1,6 +1,7 @@
 import Header from '../components/Header'
 import '../styles/index.css'
 import Head from 'next/head'
+import Footer from '../components/Footer'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -8,8 +9,9 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Header/>
+      <Header />
       <Component {...pageProps} />
+      <Footer />
     </div>
   )
 }
