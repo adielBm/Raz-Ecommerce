@@ -7,7 +7,6 @@ const HomePage = ({ data }) => {
   return (
     <ProductList products={data.products} />
   )
-  
 }
 
 export async function getServerSideProps() {
