@@ -1,22 +1,39 @@
 import { fromImageToUrl } from '../utils/fromImageToUrl'
 import Link from 'next/link'
+import Image from 'next/image'
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
 
 const ProductList = (products) => {
   const aaa = products.products
   return (
-    <div>
+    <Grid container spacing={4}>
       {aaa.map((product) => (
-        <div key={product.id} className="review-card">
-          <Link href={`/product/${product.slug}`}>
+        <Grid item xs={6} md={3}>
+          <Link key={product.id} href={`/product/${product.slug}`}>
             <a>
-              <img src={fromImageToUrl(product.image)} />
-              <h2>{product.title}</h2>
-              <p>{product.content.substring(0, 200)}...</p>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Image width={200} height={200} src={fromImageToUrl(product.image)} />
+                  <h2>{product.title}</h2>
+                  <Typography>{product.content.substring(0, 200)}...</Typography>
+                  <Button variant="contained">Buy</Button>
+                </CardContent>
+              </Card>
             </a>
           </Link>
-        </div>
-      ))}
-    </div>
+        </Grid>
+      ))
+      }
+    </Grid>
   )
 }
 

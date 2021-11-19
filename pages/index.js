@@ -2,7 +2,6 @@ import { PRODUCTS } from '../apollo/queries'
 import client from '../apollo/client'
 import ProductList from '../components/ProductList'
 
-
 const HomePage = ({ data }) => {
   return (
     <ProductList products={data.products} />
