@@ -1,7 +1,9 @@
+import styles from './Footer.module.css'
+
 const Footer = () => {
   return (
     <footer>
-      <small>raz ecommerce 2021</small>
+      <small className={styles.footer}>raz ecommerce 2021</small>
     </footer>
   )
 }
