@@ -6,30 +6,34 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
-
+import styles from './Header.module.css'
+import MoreIcon from '@mui/icons-material/MoreVert';
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 
 const Header = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="relative" >
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
+          <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link href={`/`} >
               <a>
-                <h1>Raz ecommerce</h1>
+                <Typography variant="h4" className={styles.title} >raz ecommerce</Typography>
               </a>
             </Link>
           </Typography>
+          <Box color="white" sx={{ display: { xs: 'flex' } }}>
+            <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+              <Badge badgeContent={4} color="secondary">
+                <ShoppingBasketIcon/>
+              </Badge>
+            </IconButton>
+          </Box>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
