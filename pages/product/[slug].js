@@ -4,9 +4,12 @@ import { PRODUCT_BY_SLUG } from "../../apollo/queries"
 import client from "../../apollo/client"
 import { Button, Grid, Typography } from "@mui/material"
 import Image from 'next/image'
+import { useCart } from "../../hooks/useCart"
 
 const Product = ({ data }) => {
   const product = data.products[0]
+  const { addProduct, cartItems, increase } = useCart()
+
   return (
     <div className="review-card">
       <Grid container spacing={5}>
@@ -22,7 +25,7 @@ const Product = ({ data }) => {
           ))}
           <Typography>{product.content}</Typography>
           <Typography variant="h4" component="div">{`${product.price} $`}</Typography>
-          <Button variant="contained" color="primary">Add To Cart</Button>
+          <Button variant="contained" color="primary"  onClick={() => addProduct(product)}>Add To Cart</Button>
         </Grid>
       </Grid>
     </div>
