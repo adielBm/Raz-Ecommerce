@@ -13,12 +13,11 @@ import Grid from '@mui/material/Grid';
 
 
 const ProductList = (products) => {
-  const aaa = products.products
   return (
     <Grid container spacing={4}>
-      {aaa.map((product) => (
-        <Grid item xs={6} md={3}>
-          <Link key={product.id} href={`/product/${product.slug}`}>
+      {products.products.map((product) => (
+        <Grid key={product.id} item xs={6} md={3}>
+          <Link href={`/product/${product.slug}`}>
             <a>
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
