@@ -11,8 +11,11 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import { CartContext } from "../contexts/CartContext";
+import { useContext } from "react";
 
 const Header = () => {
+  const cart = useContext(CartContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="relative" >
@@ -28,11 +31,13 @@ const Header = () => {
             </Link>
           </Typography>
           <Box color="white" sx={{ display: { xs: 'flex' } }}>
-            <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-              <Badge badgeContent={4} color="secondary">
-                <ShoppingBasketIcon/>
-              </Badge>
-            </IconButton>
+            <Link href="/cart">
+              <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                <Badge badgeContent={cart.cartItems.length} color="secondary">
+                  <ShoppingBasketIcon />
+                </Badge>
+              </IconButton>
+            </Link>
           </Box>
           <Button color="inherit">Login</Button>
         </Toolbar>
