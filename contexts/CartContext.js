@@ -4,12 +4,19 @@ import { CartReducer, sumItems } from './CartReducer';
 export const CartContext = createContext()
 
 const CartContextProvider = ({ children }) => {
+ 
+  if (typeof window !== 'undefined') {
+    const storage = window.localStorage.getItem('cart') === null ? [] : JSON.parse(localStorage.getItem('cart'))
+  }
+  
+  const initialState = () => {
+    if (typeof window !== 'undefined') {
+      return { cartItems: storage, ...sumItems(storage), checkout: false };
+    }
+    return { cartItems: [], checkout: [] }; 
+  }
 
-
-  const storage = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-
-  const initialState = { cartItems: storage, ...sumItems(storage), checkout: false };
-  const [state, dispatch] = useReducer(CartReducer, initialState)
+  const [state, dispatch] = useReducer(CartReducer, initialState())
 
 
   const increase = payload => {
