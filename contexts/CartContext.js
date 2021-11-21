@@ -44,6 +44,10 @@ const CartContextProvider = ({ children }) => {
     dispatch({ type: 'CHECKOUT' })
   }
 
+  const clearAlert = () => {
+    dispatch({ type: 'CLEAR_ALERT' })
+  }
+
   const contextValues = {
     removeProduct,
     addProduct,
@@ -51,11 +55,9 @@ const CartContextProvider = ({ children }) => {
     decrease,
     clearCart,
     handleCheckout,
+    clearAlert,
     ...state
   }
-
-
-
 
   return (
     <CartContext.Provider value={contextValues} >

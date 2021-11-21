@@ -7,6 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import '../styles/global.css'
 import Container from '@mui/material/Container';
 import CartContextProvider from '../contexts/CartContext'
+import AlertCart from '../components/AlertCart'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -15,10 +16,13 @@ function MyApp({ Component, pageProps }) {
         <CssBaseline />
         <Head>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <title>Raz Ecommerce</title>
+          <link rel="shortcut icon" href="/favicon/favicon.ico" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
         </Head>
         <Header />
-        <Container maxWidth="xl">
+        <Container component="main" maxWidth="xl">
+          <AlertCart />
           <Component {...pageProps} />
         </Container>
         <Footer />

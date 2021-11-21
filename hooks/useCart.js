@@ -3,6 +3,5 @@ import { CartContext } from '../contexts/CartContext';
 
 export const useCart = () => {
     const ctx = useContext(CartContext)
-    console.log('useContext', ctx)
     return { ...ctx }
 }
