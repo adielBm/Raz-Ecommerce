@@ -7,9 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import styles from './Header.module.css'
-import MoreIcon from '@mui/icons-material/MoreVert';
 import Badge from '@mui/material/Badge';
-import MailIcon from '@mui/icons-material/Mail';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { CartContext } from "../contexts/CartContext";
 import { useContext } from "react";
@@ -33,7 +31,7 @@ const Header = () => {
           <Box color="white" sx={{ display: { xs: 'flex' } }}>
             <Link href="/cart">
               <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                <Badge badgeContent={cart.cartItems.length} color="secondary">
+                <Badge badgeContent={cart.itemCount} color="secondary">
                   <ShoppingBasketIcon />
                 </Badge>
               </IconButton>
