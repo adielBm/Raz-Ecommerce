@@ -1,6 +1,6 @@
 import React from "react";
 
-function ClientOnly({ children, ...delegated }) {
+const ClientOnly = ({ children, ...delegated }) => {
 
   const [hasMounted, setHasMounted] = React.useState(false);
 
@@ -8,9 +8,7 @@ function ClientOnly({ children, ...delegated }) {
     setHasMounted(true);
   }, []);
 
-  if (!hasMounted) {
-    return null;
-  }
+  if (!hasMounted) return null
 
   return (
     <React.Fragment {...delegated}>
