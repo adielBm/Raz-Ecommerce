@@ -1,16 +1,14 @@
 import { Alert, Collapse, IconButton } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 import { useCart } from "../hooks/useCart";
-import { CartContext } from "../contexts/CartContext";
-import { useContext } from "react";
+import Link from "next/link"
 
 const AlertCart = () => {
 
-  const { clearAlert } = useCart()
-  const cart = useContext(CartContext);
+  const { clearAlert, alertShow } = useCart()
 
   return (
-    <Collapse in={cart.alertShow}>
+    <Collapse in={alertShow}>
       <Alert
         action={
           <IconButton
@@ -22,7 +20,9 @@ const AlertCart = () => {
             <CloseIcon fontSize="inherit" />
           </IconButton>
         }
-        sx={{ mb: 2 }}>The "<b>{cart.alertShow ? cart.alertShow.title : null}</b>" product has been added to the shopping cart</Alert>
+        sx={{ mb: 2 }}>
+        The "<Link href={`/product/${alertShow.slug}`}><a>{alertShow ? alertShow.title : null}</a></Link>" product has been added to the shopping cart
+      </Alert>
     </Collapse>
   )
 }
