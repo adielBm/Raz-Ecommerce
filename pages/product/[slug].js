@@ -5,8 +5,6 @@ import client from "../../apollo/client"
 import { Button, Grid, Typography } from "@mui/material"
 import Image from 'next/image'
 import { useCart } from "../../hooks/useCart"
-import { useContext } from "react"
-import { CartContext } from "../../contexts/CartContext"
 
 const Product = ({ data }) => {
   const product = data.products[0]

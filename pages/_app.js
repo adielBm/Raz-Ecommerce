@@ -9,7 +9,9 @@ import Container from '@mui/material/Container';
 import CartContextProvider from '../contexts/CartContext'
 import AlertCart from '../components/AlertCart'
 
+
 function MyApp({ Component, pageProps }) {
+
   return (
     <ThemeProvider theme={theme}>
       <CartContextProvider>

@@ -4,7 +4,6 @@ import { useCart } from "../hooks/useCart";
 import { CartContext } from "../contexts/CartContext";
 import { useContext } from "react";
 
-
 const AlertCart = () => {
 
   const { clearAlert } = useCart()
