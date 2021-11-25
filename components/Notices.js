@@ -41,6 +41,12 @@ function Notices() {
         msg: `The product ${cartItems.at(-1).title} has been successfully added to your shopping cart.`,
         severity: 'success'
       })
+    } 
+    if (cartItems.length < prevCartItems) {
+      Notices.addNotice({
+        msg: `The product has been removed from the shopping cart.`,
+        severity: 'info'
+      })
     }
   }, [cartItems.length])
 
