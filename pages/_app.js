@@ -7,7 +7,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import '../styles/global.css'
 import Container from '@mui/material/Container';
 import CartContextProvider from '../contexts/CartContext'
-import AlertCart from '../components/AlertCart'
+import Notices from '../components/Notices'
+import NoticesContextProvider from '../contexts/NoticesContext'
 
 
 function MyApp({ Component, pageProps }) {
@@ -24,7 +25,9 @@ function MyApp({ Component, pageProps }) {
         </Head>
         <Header />
         <Container component="main" maxWidth="xl">
-          <AlertCart />
+          <NoticesContextProvider>
+            <Notices />
+          </NoticesContextProvider>
           <Component {...pageProps} />
         </Container>
         <Footer />

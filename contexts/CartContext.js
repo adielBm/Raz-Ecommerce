@@ -1,9 +1,10 @@
-import React, { createContext, useEffect, useReducer } from 'react';
+import React, { createContext, useReducer } from 'react';
 import { CartReducer, sumItems } from './CartReducer';
 
 export const CartContext = createContext()
 
 const CartContextProvider = ({ children }) => {
+
 
   if (typeof window !== 'undefined') {
     const storage = window.localStorage.getItem('cart') === null ? [] : JSON.parse(localStorage.getItem('cart'))
@@ -44,10 +45,6 @@ const CartContextProvider = ({ children }) => {
     dispatch({ type: 'CHECKOUT' })
   }
 
-  const clearAlert = () => {
-    dispatch({ type: 'CLEAR_ALERT' })
-  }
-
   const contextValues = {
     removeProduct,
     addProduct,
@@ -55,7 +52,6 @@ const CartContextProvider = ({ children }) => {
     decrease,
     clearCart,
     handleCheckout,
-    clearAlert,
     ...state
   }
 

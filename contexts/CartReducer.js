@@ -18,15 +18,12 @@ export const CartReducer = (state, action) => {
           quantity: 1
         })
       }
-      state.alertShow = action.payload
-
       return {
         ...state,
         ...sumItems(state.cartItems),
         cartItems: [...state.cartItems]
       }
     case "REMOVE_ITEM":
-      state.alertShow = false
       return {
         ...state,
         ...sumItems(state.cartItems.filter(item => item.id !== action.payload.id)),
@@ -53,17 +50,9 @@ export const CartReducer = (state, action) => {
         ...sumItems([]),
       }
     case "CLEAR":
-      state.alertShow = false
       return {
         cartItems: [],
         ...sumItems([]),
-      }
-    case "CLEAR_ALERT":
-      state.alertShow = false
-      return {
-        ...state,
-        ...sumItems(state.cartItems),
-        cartItems: [...state.cartItems]
       }
     default:
       return state
