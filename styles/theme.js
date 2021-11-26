@@ -19,7 +19,7 @@ export const theme = createTheme({
     fontWeightBold: 800,
     fontWeightRegular: 400,
   },
-  direction: 'rtl',
+  direction: 'ltr',
   shape: {
     borderRadius: 10,
   },

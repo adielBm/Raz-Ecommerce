@@ -6,12 +6,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import styles from './Header.module.css'
+import styles from './Header.module.scss'
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
-import { useCart } from "../hooks/useCart";
 import IconCart from "./IconCart";
- 
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -30,7 +28,6 @@ function HideOnScroll(props) {
 }
 
 const Header = (props) => {
-
   return (
     <>
       <HideOnScroll {...props}>
@@ -47,7 +44,7 @@ const Header = (props) => {
               </Link>
             </Typography>
             <Box color="white" sx={{ display: { xs: 'flex' } }}>
-              <IconCart/>
+              <IconCart />
             </Box>
             <Button color="inherit">Login</Button>
           </Toolbar>

@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import { ThemeProvider } from '@mui/material'
 import { theme } from '../styles/theme'
 import CssBaseline from '@mui/material/CssBaseline';
-import '../styles/global.css'
+import '../styles/global.scss'
 import Container from '@mui/material/Container';
 import CartContextProvider from '../contexts/CartContext'
 import Notices from '../components/Notices'
