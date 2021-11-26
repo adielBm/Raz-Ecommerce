@@ -1,7 +1,70 @@
+@import "utilities/variables";
+
+body {
+  color: $color;
+}
+
 a {
   text-decoration: none;
+  color: $color;
 }
 
 main {
   padding: 30px;
+}
+
+button {
+  background-color: $colorSec;
+  border-radius: 20px!important;
+  outline: none;
+  padding: 0 24px!important;
+  height: 40px;
+  line-height: 2rem !important;
+  border: none;
+  cursor: pointer;
+  font-size: 18.5px !important;
+  font-weight: bold !important;
+  color: #ffffff;
+  margin-right: 5px!important;
+  transition: background-color .15s ease-in-out;
+  display: inline-block;
+
+  &:hover {
+    background-color: $colorSec--hover;
+  }
+  &:active {
+    background-color: $colorSec--active;
+  }
+}
+
+.block {
+  border-radius: 10px;
+  background: white;
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: repeat(auto-fill,minmax(400px,1fr));
+}
+
+.flex {
+  display: flex;
+  gap: 40px;
+}
+
+
+
+.image-container {
+  width: 100%;
+  > div {
+    position: unset !important;
+  }
+  .image {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+  }
 }

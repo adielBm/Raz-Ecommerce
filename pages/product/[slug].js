@@ -2,7 +2,7 @@ import { fromImageToUrl } from "../../utils/fromImageToUrl"
 import Link from 'next/link'
 import { PRODUCT_BY_SLUG } from "../../apollo/queries"
 import client from "../../apollo/client"
-import { Button, Grid, Typography } from "@mui/material"
+import { Grid } from "@mui/material"
 import Image from 'next/image'
 import { useCart } from "../../hooks/useCart"
 
@@ -18,13 +18,13 @@ const Product = ({ data }) => {
         </div>
       </Grid>
       <Grid item md={6}>
-        <Typography variant="h1" color="initial">{product.title}</Typography>
+        <h1>{product.title}</h1>
         {product.product_categories.map((c) => (
           <Link key={c.id} href={`/product-category/${c.slug}`}><a><small>{c.title}</small></a></Link>
         ))}
-        <Typography>{product.content}</Typography>
-        <Typography variant="h4" component="div">{`${product.price} $`}</Typography>
-        <Button variant="contained" color="primary" onClick={() => addProduct(product)}>Add To Cart</Button>
+        <div>{product.content}</div>
+        <h2>{`${product.price} $`}</h2>
+        <button onClick={() => addProduct(product)}>Add To Cart</button>
       </Grid>
     </Grid>
   )
