@@ -1,9 +1,9 @@
 module.exports = {
   env: {
-    API_URL: 'https://raz-ecommerce.herokuapp.com',
+    API_URL: 'http://localhost:1337',
   },
   images: {
-    domains: ['raz-ecommerce.herokuapp.com'],
+    domains: ['localhost'],
   }
 }
 
