@@ -9,6 +9,8 @@ import Container from '@mui/material/Container';
 import CartContextProvider from '../contexts/CartContext'
 import Notices from '../components/Notices'
 import NoticesContextProvider from '../contexts/NoticesContext'
+import client from '../apollo/client'
+import { ApolloProvider } from '@apollo/client'
 
 
 function MyApp({ Component, pageProps }) {
@@ -23,14 +25,16 @@ function MyApp({ Component, pageProps }) {
           <link rel="shortcut icon" href="/favicon/favicon.ico" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
         </Head>
-        <Header />
-        <Container component="main" maxWidth="xl">
-          <NoticesContextProvider>
-            <Notices />
-          </NoticesContextProvider>
-          <Component {...pageProps} />
-        </Container>
-        <Footer />
+        <ApolloProvider client={client}>
+          <Header />
+          <Container component="main" maxWidth="xl">
+            <NoticesContextProvider>
+              <Notices />
+            </NoticesContextProvider>
+            <Component {...pageProps} />
+          </Container>
+          <Footer />
+        </ApolloProvider>
       </CartContextProvider>
     </ThemeProvider>
   )
