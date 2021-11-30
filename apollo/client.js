@@ -3,7 +3,7 @@ import { API_URL } from "../utils/api";
 
 const client = new ApolloClient({
     uri: `${API_URL}/graphql`,
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache()
 });
 
 

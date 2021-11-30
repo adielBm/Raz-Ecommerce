@@ -14,17 +14,18 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ClientOnly from '../hooks/ClientOnly';
+import Link from 'next/link'
 
 
 function Cart() {
 
-  const { increase, decrease, clearCart, removeProduct, cartItems, total, itemCount } = useCart()
+  const { increase, decrease, clearCart, removeProduct, cartItems, total, itemCount, handleCheckout } = useCart()
 
   return (
     <div>
       <ClientOnly>
         <h1>Total Items ({itemCount})</h1>
-        <Button onClick={() => clearCart()}>Clear Cart</Button>
+        <Button onClick={() => handleCheckout()}>handleCheckout</Button>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -67,6 +68,9 @@ function Cart() {
           </Table>
         </TableContainer>
       </ClientOnly>
+      <Link href={`/checkout/`}>
+        <button>Checkout</button>
+      </Link>
     </div>
   );
 }

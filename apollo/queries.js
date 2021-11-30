@@ -77,3 +77,14 @@ query ProductBySlug($slug: ID!) {
   }
 `;
 
+export const CREATE_ORDER = gql`
+    mutation CreateOrder ($name: String!, $email: String, $total: Int!) {
+      createOrder(input: { data: { name: $name, email: $email, total: $total } }) {
+        order {
+          name
+          total
+          email
+        }
+      }
+    }
+  `;
