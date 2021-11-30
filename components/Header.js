@@ -39,7 +39,7 @@ const Header = (props) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               <Link href={`/`} >
                 <a>
-                  <Typography variant="h4" className={styles.title} >raz ecommerce</Typography>
+                  <Typography variant="h4" className={styles.title} >raz</Typography>
                 </a>
               </Link>
             </Typography>
