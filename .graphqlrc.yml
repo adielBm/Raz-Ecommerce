@@ -2,4 +2,4 @@ schema: "schema.graphql"
 extensions:
   endpoints:
     default:
-      url: http://localhost:1337/graphql
+      url: http://0.0.0.0:1337/graphql
