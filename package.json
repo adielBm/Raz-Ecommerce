@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "🚀 strapi develop": "npm --prefix ../strapi/ run strapi develop",
+    "🚀 strapi develop": "npm --prefix ../raz-ecommerce-backend/ run strapi develop",
     "⚛️ next dev": "next dev",
     "build": "next build",
     "start": "next start",
