@@ -11,44 +11,67 @@ export const PRODUCTS_CATEGORIES = gql`
 `;
 
 export const PRODUCTS_CATEGORY_BY_SLUG = gql`
-  query ProductCategoryBySlug ($slug: ID!) {
-    productCategories(where: {slug: $slug}  ) {
-      id,
-      title,
-      slug,
-      products {
-        id,
-        title,
-        content,
-        price,
-        slug,
-        published_at,
-        image {
-          id,
-          url
+query ProductCategoryBySlug($slug: String!) {
+  productCategories(filters: { slug: { eq: $slug } }) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        products {
+          data {
+            id
+            attributes {
+              title
+              content
+              price
+              slug
+              publishedAt
+              image {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
   }
+}
+
 `;
 
 export const PRODUCTS = gql`
   query {
     products {
-      id,
-      title,
-      content,
-      price,
-      slug,
-      published_at,
-      image {
-        id,
-        url
-      },
-      product_categories {
-        id,
-        title,
-        slug,
+    	data {
+        id
+        attributes {
+          title
+          content
+          price
+          slug
+          publishedAt
+          image {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          product_categories {
+            data {
+              id
+              attributes {
+                title
+                slug
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -56,26 +79,43 @@ export const PRODUCTS = gql`
 
 
 export const PRODUCT_BY_SLUG = gql`
-query ProductBySlug($slug: ID!) {
-  products(where: {slug: $slug}  ) {
-      id,
-      title,
-      content,
-      price,
-      slug,
-      published_at,
-      image {
-        id,
-        url
-      },
-      product_categories {
-        id,
-        title,
-        slug,
+query productBySlug($slug: String) {
+  products(filters: { slug: { eq: $slug } }) {
+    data {
+      id
+      attributes {
+        title
+        content
+        price
+        slug
+        publishedAt
+        image {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        product_categories {
+          data {
+            id
+            attributes {
+              title
+              slug
+            }
+          }
+        }
       }
     }
   }
+}
 `;
+
+
+
+
+
+
 
 export const CREATE_ORDER = gql`
     mutation CreateOrder ($name: String!, $email: String, $total: Int!) {

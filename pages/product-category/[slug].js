@@ -1,40 +1,20 @@
-import client from "../../apollo/client";
-import { PRODUCTS_CATEGORIES, PRODUCTS_CATEGORY_BY_SLUG } from "../../apollo/queries";
+import { getProductsCategoryBySlug } from "../../apollo/getQueries";
 import ProductList from "../../components/ProductList"
 
-const ProductCategory = ({ data }) => {
-  const productCategory =  data.productCategories[0]
+const ProductCategory = ({data}) => {
   return (
     <div>
-      <div className="review-card">
-        <h2>{productCategory.title}</h2>
+      <div>
+        <h2>{data.productCategory.title}</h2>
       </div>
-      <ProductList products={productCategory.products} />
+      <ProductList products={data.products.data} />
     </div> 
   )
 }
 
 export async function getServerSideProps({ params }) {
-  const { data } = await client.query({
-    query: PRODUCTS_CATEGORY_BY_SLUG,
-    variables: {slug: params.slug}
-  })
+  const data = await getProductsCategoryBySlug(params.slug)
   return { props: { data } }
 }
-/* 
-export async function getStaticPaths() {
-
-  const { data } = await client.query({
-    query: PRODUCTS_CATEGORIES
-  })
-  
-  const paths = data.productCategories.map((productCategory) => ({
-    params: { slug: productCategory.slug },
-  }))
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
-  return { paths, fallback: false }
-} */
 
 export default ProductCategory

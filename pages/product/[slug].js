@@ -1,15 +1,13 @@
 import { fromImageToUrl } from "../../utils/fromImageToUrl"
 import Link from 'next/link'
-import { PRODUCT_BY_SLUG } from "../../apollo/queries"
-import client from "../../apollo/client"
 import { Grid } from "@mui/material"
 import Image from 'next/image'
 import { useCart } from "../../hooks/useCart"
+import { getProductBySlug } from "../../apollo/getQueries"
 
 const Product = ({ data }) => {
-  const product = data.products[0]
+  const product = data.product
   const { addProduct } = useCart()
-  
   return (
     <Grid container spacing={5}>
       <Grid item md={6}>
@@ -19,8 +17,8 @@ const Product = ({ data }) => {
       </Grid>
       <Grid item md={6}>
         <h1>{product.title}</h1>
-        {product.product_categories.map((c) => (
-          <Link key={c.id} href={`/product-category/${c.slug}`}><a><small>{c.title}</small></a></Link>
+        {data.productCategories.data.map((c) => (
+          <Link key={c.id} href={`/product-category/${c.attributes.slug}`}><a><small>{c.attributes.title}</small></a></Link>
         ))}
         <div>{product.content}</div>
         <h2>{`${product.price} $`}</h2>
@@ -31,10 +29,7 @@ const Product = ({ data }) => {
 }
 
 export async function getServerSideProps({ params }) {
-  const { data } = await client.query({
-    query: PRODUCT_BY_SLUG,
-    variables: { slug: params.slug }
-  })
+  const data = await getProductBySlug(params.slug)
   return { props: { data } }
 }
 

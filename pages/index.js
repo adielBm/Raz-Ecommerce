@@ -4,7 +4,7 @@ import ProductList from '../components/ProductList'
 
 const HomePage = ({ data }) => {
   return (
-    <ProductList products={data.products} />
+    <ProductList products={data.products.data} />
   )
 }
 
