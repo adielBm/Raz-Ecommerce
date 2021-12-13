@@ -1,20 +1,38 @@
-@import "utilities/variables";
+@use "variables/colors";
+@use "utilities/layout";
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@1&family=Roboto:wght@400;700&display=swap');
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+ol, ul, menu {
+  list-style: none;
+}
+h1, h2, h3, h4, h5, h6, p, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
 body {
-  color: $color;
+  color: colors.$primary;
 }
 
 a {
   text-decoration: none;
-  color: $color;
+  color: colors.$primary;
 }
 
 main {
   padding: 30px;
 }
 
-button {
-  background-color: $colorSec;
+button, input[type="submit"] {
+  background-color: colors.$secondary;
   border-radius: 20px!important;
   outline: none;
   padding: 0 24px!important;
@@ -30,10 +48,10 @@ button {
   display: inline-block;
 
   &:hover {
-    background-color: $colorSec--hover;
+    background-color: colors.$secondary--hover;
   }
   &:active {
-    background-color: $colorSec--active;
+    background-color: colors.$secondary--active;
   }
 }
 
@@ -42,19 +60,6 @@ button {
   background: white;
   overflow: hidden;
 }
-
-.grid {
-  display: grid;
-  gap: 40px;
-  grid-template-columns: repeat(auto-fill,minmax(400px,1fr));
-}
-
-.flex {
-  display: flex;
-  gap: 40px;
-}
-
-
 
 .image-container {
   width: 100%;
@@ -67,4 +72,20 @@ button {
     position: relative !important;
     height: unset !important;
   }
+}
+
+
+input[type="text"] {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  outline: none;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.5rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }

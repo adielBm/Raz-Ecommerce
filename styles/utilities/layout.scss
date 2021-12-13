@@ -1,0 +1,47 @@
+@mixin grid {
+  display: grid;
+  gap: 40px;
+}
+
+.grid {
+  & {
+    @include grid;
+    grid-template-columns: repeat(auto-fill,minmax(400px,1fr));
+  }
+  &-xs {
+    @include grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+  }
+  &-l {
+    @include grid;
+    grid-template-columns: repeat(auto-fill,minmax(500px,1fr));
+  }
+  &-s {
+    @include grid;
+    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  }
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+
+  & > .flex-1 {
+    flex: 1;
+  }
+}
+
+.g3 {
+  gap: 30px;
+}
+.g2 {
+  gap: 20px;
+}
+.g1 {
+  gap: 10px;
+}
+.g0 {
+  gap: 0;
+}
+

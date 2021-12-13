@@ -1,4 +1,11 @@
-.title {
-  margin: 0;
+@use "../styles/variables/colors";
+
+.header {
+  background: colors.$primary;
+  color: white;
+  padding: 10px;
+}
+
+.cart {
   color: white;
 }

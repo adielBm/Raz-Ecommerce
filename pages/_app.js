@@ -11,7 +11,7 @@ import Notices from '../components/Notices'
 import NoticesContextProvider from '../contexts/NoticesContext'
 import client from '../apollo/client'
 import { ApolloProvider } from '@apollo/client'
-
+import 'normalize.css'; // Note this
 
 function MyApp({ Component, pageProps }) {
 
