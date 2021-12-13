@@ -6,7 +6,9 @@ import { useCart } from "../../hooks/useCart"
 import { getProductBySlug } from "../../apollo/getQueries"
 
 const Product = ({ data }) => {
+  const id = data.id
   const product = data.product
+  console.log(product)
   const { addProduct } = useCart()
   return (
     <Grid container spacing={5}>
@@ -22,7 +24,7 @@ const Product = ({ data }) => {
         ))}
         <div>{product.content}</div>
         <h2>{`${product.price} $`}</h2>
-        <button onClick={() => addProduct(product)}>Add To Cart</button>
+        <button className="button is-primary" onClick={() => addProduct({...product, id})}>Add To Cart</button>
       </Grid>
     </Grid>
   )

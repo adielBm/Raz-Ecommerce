@@ -23,7 +23,7 @@ function Checkout() {
     console.log('🚚data', data)
     return 'The order was completed successfully.✅🚚'
   }
-  
+
   // add here Notices 🔔
   /*   useEffect(() => {
       if (data) {
@@ -36,9 +36,18 @@ function Checkout() {
 
   const onSubmit = async (data) => {
 
-    const { email, name, address } = data
+    const { first_name, last_name, email, address } = data
 
-    createOrder({ variables: { name: name, total: parseInt(total), email: email } })
+    createOrder({
+      variables: {
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        address: address,
+        items: cartItems.map((el) => ({ count: el.quantity, product: parseInt(el.id) })),
+        total: parseInt(total),
+      }
+    })
 
     clearCart()
 
@@ -47,21 +56,31 @@ function Checkout() {
   return (
     <div>
       <h1>Checkout</h1>
-      <h3>Billing Address</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          email
-          <input defaultValue="" {...register("email")} />
+        <div className="grid">
+          <div>
+            <label>First Name</label>
+            <input type="text" defaultValue="" {...register("first_name")} />
+          </div>
+
+          <div>
+            <label>Last Name</label>
+            <input type="text" defaultValue="" {...register("last_name")} />
+          </div>
+
+          <div>
+            <label>Email</label>
+            <input type="text" defaultValue="" {...register("email")} />
+          </div>
+
+          <div>
+            <label>Address</label>
+            <input type="text" defaultValue="" {...register("address")} />
+          </div>
         </div>
-        <div>
-          name
-          <input defaultValue="" {...register("name")} />
-        </div>
-        <div>
-          Address
-          <input defaultValue="" {...register("address")} />
-        </div>
+
         <input type="submit" />
+
       </form>
     </div>
   );

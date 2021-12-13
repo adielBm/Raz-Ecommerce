@@ -112,19 +112,44 @@ query productBySlug($slug: String) {
 `;
 
 
-
-
-
-
-
 export const CREATE_ORDER = gql`
-    mutation CreateOrder ($name: String!, $email: String, $total: Int!) {
-      createOrder(input: { data: { name: $name, email: $email, total: $total } }) {
-        order {
-          name
-          total
-          email
+mutation createOrder(
+  $first_name: String!
+  $last_name: String
+  $address: String
+  $total: Int!
+  $email: String
+  $items: [ComponentOrderItemsInput]
+) {
+  createOrder(
+    data: {
+      first_name: $first_name
+      last_name: $last_name
+      address: $address
+      email: $email
+      total: $total
+      items: $items
+    }
+  ) {
+    data {
+      attributes {
+        first_name
+        last_name
+        total
+				... on Order {
+          items {
+            count
+            product {
+              data {
+                id
+              }
+            }
+          }
         }
+        address
+        email
       }
     }
-  `;
+  }
+}
+`;

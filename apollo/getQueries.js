@@ -16,8 +16,9 @@ export async function getProductBySlug(slug) {
     query: Queries.PRODUCT_BY_SLUG,
     variables: { slug: slug }
   })
+  const id =  data.products.data[0].id
   const product = data.products.data[0].attributes
   const productCategories = product.product_categories
-  return { product, productCategories }
+  return { product, productCategories, id }
 }
 
