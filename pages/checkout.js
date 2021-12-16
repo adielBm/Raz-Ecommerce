@@ -4,13 +4,22 @@ import { NoticesContext } from "../contexts/NoticesContext";
 import { useCart } from "../hooks/useCart";
 import { gql, useMutation } from '@apollo/client';
 import { CREATE_ORDER } from "../apollo/queries";
+import { useRouter } from 'next/router'
+
 
 function Checkout() {
 
-  const { cartItems, total, clearCart } = useCart()
+  const router = useRouter()
+
+  const { cartItems, total, clearCart, itemCount } = useCart()
   const Notices = useContext(NoticesContext)
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [createOrder, { data, loading, error }] = useMutation(CREATE_ORDER);
+
+
+  if (itemCount == 0 ) {
+    router.push('/cart')
+  }
 
   if (loading) return 'Loading...';
 

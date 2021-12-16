@@ -1,77 +1,86 @@
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TableFooter from '@mui/material/TableFooter';
 import { useCart } from "../hooks/useCart";
-import { Button } from "@mui/material";
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import ClientOnly from '../hooks/ClientOnly';
 import Link from 'next/link'
-
+import { fromImageToUrl } from "../utils/fromImageToUrl"
+import Image from 'next/image'
+import Shipping from "../components/Shipping";
+import { FaAngleRight, FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 
 function Cart() {
 
   const { increase, decrease, clearCart, removeProduct, cartItems, total, itemCount, handleCheckout } = useCart()
 
+  if (itemCount == 0) return (
+    <h3>Your shopping cart is empty.</h3>
+  )
+
+
   return (
-    <div>
-      <ClientOnly>
-        <h1>Total Items ({itemCount})</h1>
-        <Button onClick={() => handleCheckout()}>handleCheckout</Button>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Title</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Quantity</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {cartItems.map((product) => (
-                <TableRow key={product.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                  <TableCell>{product.title}</TableCell>
-                  <TableCell>{product.price}</TableCell>
-                  <TableCell>
-                    <Stack direction="row" spacing={1}>
-                      {product.quantity}
-                      <IconButton onClick={() => increase(product)} aria-label="add">
-                        <AddIcon />
-                      </IconButton>
-                      <IconButton onClick={() => product.quantity == 1 ? removeProduct(product) : decrease(product)} aria-label="add">
-                        <RemoveIcon />
-                      </IconButton>
-                    </Stack>
-                  </TableCell>
-                  <TableCell>
-                    <IconButton onClick={() => removeProduct(product)} aria-label="add">
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TableCell colSpan={2}>Total</TableCell>
-                <TableCell align="right">{total}</TableCell>
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
-      </ClientOnly>
-      <Link href={`/checkout/`}>
-        <button>Checkout</button>
-      </Link>
-    </div>
+    <ClientOnly>
+      <h1 className="text-center border-b-2 pb-8 mb-8">Cart</h1>
+      <div className="md:flex gap-12">
+        <div className="space-y-6 grow">
+          <h2>Your Cart Items</h2>
+          <div className="grid gap-4">
+            {cartItems.map((product) => (
+              <div key={product.id} className="flex items-center gap-8 rounded-lg shadow-md p-4 bg-white">
+                <div className="h-16 w-16 rounded-lg overflow-hidden relative">
+                  <Image src={fromImageToUrl(product.image)} layout="fill" objectFit="cover" />
+                </div>
+                <div className="flex justify-between flex-1">
+                  <h3 className="">{product.title}</h3>
+                  <div>{product.price}$</div>
+                  <div className="flex gap-8">
+                    <button className="btn-icon" onClick={() => product.quantity == 1 ? removeProduct(product) : decrease(product)} aria-label="add">
+                      <FaMinus />
+                    </button>
+                    {product.quantity}
+                    <button className="btn-icon" onClick={() => increase(product)} aria-label="add">
+                      <FaPlus />
+                    </button>
+                  </div>
+                  <div>{product.price * product.quantity}$</div>
+                  <div>
+                    <button className="btn-icon" onClick={() => removeProduct(product)} aria-label="add">
+                      <FaTrash />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button className="btn" onClick={() => handleCheckout()}>Clear</button>
+
+        </div>
+
+        <div className="space-y-6 basis-1/4">
+          <h2>Shipping</h2>
+          <Shipping />
+          <h2>Order summary</h2>
+          <div className="box p-6">
+            <div className="flex justify-between">
+              <span>Cost of products: ({itemCount})</span>
+              <span>{total}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Shipping:</span>
+              <span>{total}</span>
+            </div>
+            <div className="flex justify-between border-t-2 pt-3 mt-3">
+              <span>Total:</span>
+              <h3>{total}</h3>
+            </div>
+          </div>
+          <Link href={`/checkout/`}>
+            <button className="btn w-full">
+              Checkout
+              <FaAngleRight />
+            </button>
+          </Link>
+        </div>
+      </div>
+    </ClientOnly >
   );
 }
 

@@ -1,9 +1,7 @@
-import styles from './Footer.module.scss'
-
 const Footer = () => {
   return (
-    <footer>
-      <small className={styles.footer}>Made with ❤ by Adiel</small>
+    <footer className="text-center p-9 italic text-blue-300">
+      <small className="">Made with ❤ by Adiel</small>
     </footer>
   )
 }

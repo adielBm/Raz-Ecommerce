@@ -1,17 +1,27 @@
 import Link from "next/link"
 import ClientOnly from '../hooks/ClientOnly';
 import { useCart } from "../hooks/useCart";
-import styles from './Header.module.scss';
+import { FaShoppingBag } from 'react-icons/fa';
 
 const Header = () => {
 
   const { itemCount } = useCart()
 
   return (
-    <header className={`${styles.header} flex`}>
-      <Link href="/"><h2 className="col">raz ecommerce</h2></Link>
+    <header className="flex items-center gap-6 p-5 bg-blue">
+      <Link href="/" >
+        <a className="basis-1/4"><img src="/logo.png"></img></a>
+      </Link>
+      <input
+        className="basis-1/4 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="username" type="text" placeholder="Search products..." />
       <ClientOnly>
-        <Link href="/cart"><a className={`${styles.cart}`}>{itemCount}</a></Link>
+        <Link href="/cart">
+          <a className="relative inline-block">
+            <span className={`${ itemCount ? 'opacity-1 visible'  : 'opacity-0 invisible' } inline-flex absolute -top-1 -right-1 transition-all items-center justify-center px-2 py-1 font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red rounded-full`}>{itemCount}</span>
+            <FaShoppingBag className="text-white" />
+          </a>
+        </Link>
       </ClientOnly>
     </header>
   )
