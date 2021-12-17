@@ -54,6 +54,13 @@ export const CartReducer = (state, action) => {
         cartItems: [],
         ...sumItems([]),
       }
+    case "DELIVERY":
+      state.delivery = action.payload
+      return {
+        ...state,
+        ...sumItems(state.cartItems),
+        cartItems: [...state.cartItems]
+      }
     default:
       return state
 

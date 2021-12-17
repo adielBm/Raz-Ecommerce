@@ -12,7 +12,7 @@ const CartContextProvider = ({ children }) => {
 
   const initialState = () => {
     if (typeof window !== 'undefined') {
-      return { cartItems: storage, ...sumItems(storage), checkout: false };
+      return { cartItems: storage, ...sumItems(storage), checkout: false, delivery: null };
     }
     return { cartItems: [], checkout: [] };
   }
@@ -42,7 +42,10 @@ const CartContextProvider = ({ children }) => {
 
   const handleCheckout = () => {
     dispatch({ type: 'CHECKOUT' })
-    console.log('CHECKOUT', state);
+  }
+
+  const handleDelivery = payload => {
+    dispatch({type: 'DELIVERY', payload})
   }
 
   const contextValues = {
@@ -52,6 +55,7 @@ const CartContextProvider = ({ children }) => {
     decrease,
     clearCart,
     handleCheckout,
+    handleDelivery,
     ...state
   }
 

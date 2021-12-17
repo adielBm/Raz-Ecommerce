@@ -5,14 +5,32 @@ import { fromImageToUrl } from "../utils/fromImageToUrl"
 import Image from 'next/image'
 import Shipping from "../components/Shipping";
 import { FaAngleRight, FaMinus, FaPlus, FaTrash } from "react-icons/fa";
+import { getDeliveryMethods } from '../apollo/getQueries'
 
-function Cart() {
 
-  const { increase, decrease, clearCart, removeProduct, cartItems, total, itemCount, handleCheckout } = useCart()
+function Cart({data}) {
+
+  const { 
+    increase, 
+    decrease, 
+    clearCart, 
+    removeProduct, 
+    cartItems, 
+    total, 
+    itemCount, 
+    handleCheckout,
+    delivery
+  } = useCart()
+
+  total = parseInt(total)
+
+  const deliveries = data.deliveries.data
+  const deliveryCurrentData = deliveries.find( ({ id }) => id === delivery )  
 
   if (itemCount == 0) return (
     <h3>Your shopping cart is empty.</h3>
   )
+
 
 
   return (
@@ -56,20 +74,20 @@ function Cart() {
 
         <div className="space-y-6 basis-1/4">
           <h2>Shipping</h2>
-          <Shipping />
+          <Shipping data={data} />
           <h2>Order summary</h2>
           <div className="box p-6">
             <div className="flex justify-between">
               <span>Cost of products: ({itemCount})</span>
-              <span>{total}</span>
+              <span>{total} $</span>
             </div>
             <div className="flex justify-between">
-              <span>Shipping:</span>
-              <span>{total}</span>
+              <span>Shipping: ({deliveryCurrentData.attributes.name})</span>
+              <span>{deliveryCurrentData.attributes.cost} $</span>
             </div>
             <div className="flex justify-between border-t-2 pt-3 mt-3">
               <span>Total:</span>
-              <h3>{total}</h3>
+              <h3>{total +  deliveryCurrentData.attributes.cost} $</h3>
             </div>
           </div>
           <Link href={`/checkout/`}>
@@ -85,3 +103,8 @@ function Cart() {
 }
 
 export default Cart;
+
+export async function getServerSideProps() {
+  const data = await getDeliveryMethods()
+  return { props: { data } }
+}

@@ -153,3 +153,18 @@ mutation createOrder(
   }
 }
 `;
+
+
+export const DELIVEIES = gql`
+query deliveries {
+  deliveries {
+    data {
+      id
+      attributes {
+        name
+        cost
+      }
+    }
+  }
+}
+`

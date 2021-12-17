@@ -22,3 +22,11 @@ export async function getProductBySlug(slug) {
   return { product, productCategories, id }
 }
 
+export async function getDeliveryMethods() {
+  const { data } = await client.query({
+    query: Queries.DELIVEIES,
+  })
+  console.log('🚛', data)
+  const deliveries = data.deliveries
+  return { deliveries }
+}

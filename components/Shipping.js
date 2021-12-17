@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
+import { useCart } from '../hooks/useCart'
 
 const methods = [
   {
@@ -12,27 +13,28 @@ const methods = [
   }
 ]
 
-export default function Shipping() {
-  const [selected, setSelected] = useState(methods[0])
+export default function Shipping({ data }) {
+
+  const { delivery, handleDelivery } = useCart()
+
+  const deliveries = data.deliveries.data
 
   return (
     <div className="w-full">
       <div className="w-full max-w-md mx-auto">
-        <RadioGroup value={selected} onChange={setSelected}>
+        <RadioGroup value={delivery} onChange={handleDelivery}>
           <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
           <div className="space-y-2">
-            {methods.map((method) => (
+            {deliveries.map((method) => (
               <RadioGroup.Option
-                key={method.name}
-                value={method}
+                key={method.id}
+                value={method.id}
                 className={({ active, checked }) =>
-                  `${
-                    active
-                      ? 'ring-2 ring-offset-2 ring-offset-sky-300 ring-white ring-opacity-60'
-                      : ''
+                  `${active
+                    ? 'ring-2 ring-offset-2 ring-offset-sky-300 ring-white ring-opacity-60'
+                    : ''
                   }
-                  ${
-                    checked ? 'bg-blue-400 text-white' : 'bg-white'
+                  ${checked ? 'bg-blue-400 text-white' : 'bg-white'
                   }
                   transition-all relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`
                 }
@@ -44,19 +46,17 @@ export default function Shipping() {
                         <div>
                           <RadioGroup.Label
                             as="p"
-                            className={`font-medium  ${
-                              checked ? 'text-white' : 'text-gray-900'
-                            }`}
+                            className={`font-medium  ${checked ? 'text-white' : 'text-gray-900'
+                              }`}
                           >
-                            {method.name}
+                            {method.attributes.name}
                           </RadioGroup.Label>
                           <RadioGroup.Description
                             as="span"
-                            className={`inline text-sm ${
-                              checked ? 'text-sky-100' : 'text-blue-500'
-                            }`}
+                            className={`inline text-sm ${checked ? 'text-sky-100' : 'text-blue-500'
+                              }`}
                           >
-                            <span>{method.desc}</span>
+                            <span>{method.attributes.cost}</span>
                           </RadioGroup.Description>
                         </div>
                       </div>
@@ -91,3 +91,5 @@ function CheckIcon(props) {
     </svg>
   )
 }
+
+
