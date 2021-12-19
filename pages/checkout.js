@@ -5,19 +5,19 @@ import { useCart } from "../hooks/useCart";
 import { gql, useMutation } from '@apollo/client';
 import { CREATE_ORDER } from "../apollo/queries";
 import { useRouter } from 'next/router'
-
+import OrderSummary from "../components/OrderSummary";
 
 function Checkout() {
 
   const router = useRouter()
 
-  const { cartItems, total, clearCart, itemCount } = useCart()
+  const { cartItems, total, clearCart, itemCount, delivery } = useCart()
   const Notices = useContext(NoticesContext)
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [createOrder, { data, loading, error }] = useMutation(CREATE_ORDER);
 
 
-  if (itemCount == 0 ) {
+  if (itemCount == 0) {
     router.push('/cart')
   }
 
@@ -45,7 +45,7 @@ function Checkout() {
 
   const onSubmit = async (data) => {
 
-    const { first_name, last_name, email, address } = data
+    const { first_name, last_name, email, address, phone } = data
 
     createOrder({
       variables: {
@@ -53,6 +53,7 @@ function Checkout() {
         last_name: last_name,
         email: email,
         address: address,
+        phone: phone,
         items: cartItems.map((el) => ({ count: el.quantity, product: parseInt(el.id) })),
         total: parseInt(total),
       }
@@ -64,32 +65,37 @@ function Checkout() {
 
   return (
     <div>
-      <h1>Checkout</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid">
-          <div>
-            <label>First Name</label>
-            <input type="text" defaultValue="" {...register("first_name")} />
-          </div>
-
-          <div>
-            <label>Last Name</label>
-            <input type="text" defaultValue="" {...register("last_name")} />
-          </div>
-
-          <div>
-            <label>Email</label>
-            <input type="text" defaultValue="" {...register("email")} />
-          </div>
-
-          <div>
-            <label>Address</label>
-            <input type="text" defaultValue="" {...register("address")} />
+      <h1 className="text-center border-b-2 pb-8 mb-8">Checkout</h1>
+      <form className="md:flex gap-12" onSubmit={handleSubmit(onSubmit)}>
+        <div className="space-y-6 grow">
+          <div className="grid gap-4 grid-cols-2">
+            <div>
+              <label>First Name</label>
+              <input className="input-text" type="text" defaultValue="" {...register("first_name")} />
+            </div>
+            <div>
+              <label>Last Name</label>
+              <input className="input-text" type="text" defaultValue="" {...register("last_name")} />
+            </div>
+            <div className="col-span-2">
+              <label>Email</label>
+              <input className="input-text" type="text" defaultValue="" {...register("email")} />
+            </div>
+            <div className="col-span-2">
+              <label>Address</label>
+              <input className="input-text" type="text" defaultValue="" {...register("address")} />
+            </div>
+            <div className="col-span-2">
+              <label>Phone</label>
+              <input className="input-text" type="text" defaultValue="" {...register("phone")} />
+            </div>
           </div>
         </div>
-
-        <input type="submit" />
-
+        <div className="space-y-6 basis-1/4">
+          <OrderSummary />
+          <h2>Payment Methods:</h2>
+          <input className="btn" type="submit" />
+        </div>
       </form>
     </div>
   );

@@ -6,19 +6,17 @@ export default function Shipping({ data }) {
 
   const { delivery, handleDelivery } = useCart()
 
-  useEffect(() => {
-    handleDelivery(deliveries[0].id)
-    // return () => {
-    //   cleanup
-    // }
-  }, [])
-
   const deliveries = data.deliveries.data
+
+  function handleDelivery2(value) {
+    handleDelivery(deliveries.find(({ id }) => id === value))
+    console.log(delivery)
+  }
 
   return (
     <div className="w-full">
       <div className="w-full max-w-md mx-auto">
-        <RadioGroup value={delivery} onChange={handleDelivery}>
+         <RadioGroup value={delivery.id} onChange={handleDelivery2}>
           <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
           <div className="space-y-2">
             {deliveries.map((method) => (
@@ -67,7 +65,9 @@ export default function Shipping({ data }) {
               </RadioGroup.Option>
             ))}
           </div>
-        </RadioGroup>
+        </RadioGroup>  
+
+
       </div>
     </div>
   )

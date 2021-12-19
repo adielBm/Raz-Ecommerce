@@ -7,6 +7,8 @@ import Shipping from "../components/Shipping";
 import { getDeliveryMethods } from '../apollo/getQueries'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import OrderSummary from "../components/OrderSummary";
+import { useEffect } from "react";
 
 function Cart({ data }) {
 
@@ -19,11 +21,20 @@ function Cart({ data }) {
     total,
     itemCount,
     handleCheckout,
+    handleDelivery,
     delivery
   } = useCart()
 
   const deliveries = data.deliveries.data
-  const deliveryCurrentData = deliveries.find(({ id }) => id === delivery)
+
+  useEffect(() => {
+    if (delivery == null) {
+      handleDelivery(deliveries[0])
+    }
+    // return () => {
+    //   cleanup
+    // }
+  }, [])
 
   if (!itemCount) return (
     <ClientOnly>
@@ -53,17 +64,17 @@ function Cart({ data }) {
                   <div>{product.price}$</div>
                   <div className="flex gap-8">
                     <button className="btn-icon" onClick={() => product.quantity == 1 ? removeProduct(product) : decrease(product)} aria-label="add">
-                      <FontAwesomeIcon icon={faMinus}/>
+                      <FontAwesomeIcon icon={faMinus} />
                     </button>
                     {product.quantity}
                     <button className="btn-icon" onClick={() => increase(product)} aria-label="add">
-                      <FontAwesomeIcon icon={faPlus}/>
+                      <FontAwesomeIcon icon={faPlus} />
                     </button>
                   </div>
                   <div>{product.price * product.quantity}$</div>
                   <div>
                     <button className="btn-icon" onClick={() => removeProduct(product)} aria-label="add">
-                      <FontAwesomeIcon icon={faTrash}/>
+                      <FontAwesomeIcon icon={faTrash} />
                     </button>
                   </div>
                 </div>
@@ -81,25 +92,11 @@ function Cart({ data }) {
         <div className="space-y-6 basis-1/4">
           <h2>Shipping</h2>
           <Shipping data={data} />
-          <h2>Order summary</h2>
-          <div className="box p-6">
-            <div className="flex justify-between">
-              <span>Cost of products: ({itemCount})</span>
-              <span> {total} $</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Shipping: ({deliveryCurrentData?.attributes.name})</span>
-              <span>{deliveryCurrentData?.attributes.cost} $</span>
-            </div>
-            <div className="flex justify-between border-t-2 pt-3 mt-3">
-              <span>Total:</span>
-              <h4>{total + deliveryCurrentData?.attributes.cost} $</h4>
-            </div>
-          </div>
-          <Link href={`/checkout/`}>
+          <OrderSummary />
+          <Link href={'/checkout/'}>
             <button className="btn w-full">
               Checkout
-              <FontAwesomeIcon icon={faAngleRight}/>
+              <FontAwesomeIcon icon={faAngleRight} />
             </button>
           </Link>
         </div>

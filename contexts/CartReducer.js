@@ -56,6 +56,7 @@ export const CartReducer = (state, action) => {
       }
     case "DELIVERY":
       state.delivery = action.payload
+      localStorage.setItem('delivery', JSON.stringify(action.payload))
       return {
         ...state,
         ...sumItems(state.cartItems),

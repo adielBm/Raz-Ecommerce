@@ -1,27 +1,30 @@
 import React, { createContext, useReducer } from 'react';
-import { getDeliveryMethods } from '../apollo/getQueries';
 import { CartReducer, sumItems } from './CartReducer';
 
 export const CartContext = createContext()
 
 const CartContextProvider = ({ children }) => {
 
-
   if (typeof window !== 'undefined') {
     const storage = window.localStorage.getItem('cart') === null ? [] : JSON.parse(localStorage.getItem('cart'))
+    const deliveryStorage = JSON.parse(localStorage.getItem('delivery'))
   }
 
   const initialState = () => {
 
     if (typeof window !== 'undefined') {
-      return { 
+      return {
         cartItems: storage,
-        ...sumItems(storage), 
-        checkout: false, 
-        delivery: null 
+        ...sumItems(storage),
+        checkout: false,
+        delivery: deliveryStorage
       };
     }
-    return { cartItems: [], checkout: [] };
+    return {
+      cartItems: [],
+      checkout: [],
+      delivery: null
+    };
   }
 
   const [state, dispatch] = useReducer(CartReducer, initialState())
@@ -52,7 +55,7 @@ const CartContextProvider = ({ children }) => {
   }
 
   const handleDelivery = payload => {
-    dispatch({type: 'DELIVERY', payload})
+    dispatch({ type: 'DELIVERY', payload })
   }
 
   const contextValues = {

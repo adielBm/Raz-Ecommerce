@@ -14,7 +14,7 @@ const Header = () => {
         <a className="basis-1/4"><img src="/logo.png"></img></a>
       </Link>
       <input
-        className="basis-1/4 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        className="basis-1/4 input-text"
         id="username" type="text" placeholder="Search products..." />
       <ClientOnly>
         <Link href="/cart">
