@@ -6,7 +6,7 @@
 
 @layer components {
   .btn {
-    @apply gap-2 py-2 px-4 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg;
+    @apply cursor-pointer gap-2 py-2 px-4 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg;
   }
 
   .btn-icon {
@@ -15,6 +15,10 @@
 
   .box {
     @apply bg-white rounded-lg shadow-md overflow-hidden;
+  }
+
+  .input-text {
+    @apply rounded-lg shadow-sm outline-none appearance-none border w-full py-2 px-3 text-gray-700 leading-tight;
   }
 
 
@@ -43,3 +47,5 @@
   width: 1.3rem;
   height: 1.3rem;
 }
+
+
