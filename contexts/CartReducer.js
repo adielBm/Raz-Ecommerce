@@ -3,16 +3,16 @@ const Storage = (cartItems) => {
 }
 
 export const sumItems = cartItems => {
-  Storage(cartItems);
-  let itemCount = cartItems.reduce((total, product) => total + product.quantity, 0);
-  let total = cartItems.reduce((total, product) => total + product.price * product.quantity, 0).toFixed(2);
+  Storage(cartItems)
+  let itemCount = cartItems.reduce((total, product) => total + product.quantity, 0)
+  let total = cartItems.reduce((total, product) => total + product.price * product.quantity, 0)
   return { itemCount, total }
 }
 
 export const CartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM":
-      if (!state.cartItems.find(item => item.slug === action.payload.slug)) {
+      if ( !state.cartItems.find(item => item.slug === action.payload.slug)) {
         state.cartItems.push({
           ...action.payload,
           quantity: 1

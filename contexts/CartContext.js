@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from 'react';
+import { getDeliveryMethods } from '../apollo/getQueries';
 import { CartReducer, sumItems } from './CartReducer';
 
 export const CartContext = createContext()
@@ -11,8 +12,14 @@ const CartContextProvider = ({ children }) => {
   }
 
   const initialState = () => {
+
     if (typeof window !== 'undefined') {
-      return { cartItems: storage, ...sumItems(storage), checkout: false, delivery: null };
+      return { 
+        cartItems: storage,
+        ...sumItems(storage), 
+        checkout: false, 
+        delivery: null 
+      };
     }
     return { cartItems: [], checkout: [] };
   }

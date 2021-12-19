@@ -4,33 +4,36 @@ import Link from 'next/link'
 import { fromImageToUrl } from "../utils/fromImageToUrl"
 import Image from 'next/image'
 import Shipping from "../components/Shipping";
-import { FaAngleRight, FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { getDeliveryMethods } from '../apollo/getQueries'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
+function Cart({ data }) {
 
-function Cart({data}) {
-
-  const { 
-    increase, 
-    decrease, 
-    clearCart, 
-    removeProduct, 
-    cartItems, 
-    total, 
-    itemCount, 
+  const {
+    increase,
+    decrease,
+    clearCart,
+    removeProduct,
+    cartItems,
+    total,
+    itemCount,
     handleCheckout,
     delivery
   } = useCart()
 
-  total = parseInt(total)
-
   const deliveries = data.deliveries.data
-  const deliveryCurrentData = deliveries.find( ({ id }) => id === delivery )  
+  const deliveryCurrentData = deliveries.find(({ id }) => id === delivery)
 
-  if (itemCount == 0) return (
-    <h3>Your shopping cart is empty.</h3>
+  if (!itemCount) return (
+    <ClientOnly>
+      <h1>Cart</h1>
+      <div>
+        <p>Your cart is currently empty.</p>
+        <p>Continue browsing <Link href="/"><a>here</a></Link>.</p>
+      </div>
+    </ClientOnly>
   )
-
 
 
   return (
@@ -50,17 +53,17 @@ function Cart({data}) {
                   <div>{product.price}$</div>
                   <div className="flex gap-8">
                     <button className="btn-icon" onClick={() => product.quantity == 1 ? removeProduct(product) : decrease(product)} aria-label="add">
-                      <FaMinus />
+                      <FontAwesomeIcon icon={faMinus}/>
                     </button>
                     {product.quantity}
                     <button className="btn-icon" onClick={() => increase(product)} aria-label="add">
-                      <FaPlus />
+                      <FontAwesomeIcon icon={faPlus}/>
                     </button>
                   </div>
                   <div>{product.price * product.quantity}$</div>
                   <div>
                     <button className="btn-icon" onClick={() => removeProduct(product)} aria-label="add">
-                      <FaTrash />
+                      <FontAwesomeIcon icon={faTrash}/>
                     </button>
                   </div>
                 </div>
@@ -68,7 +71,10 @@ function Cart({data}) {
             ))}
           </div>
 
-          <button className="btn" onClick={() => handleCheckout()}>Clear</button>
+          <button className="btn" onClick={clearCart}>
+            Clear
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
 
         </div>
 
@@ -79,21 +85,21 @@ function Cart({data}) {
           <div className="box p-6">
             <div className="flex justify-between">
               <span>Cost of products: ({itemCount})</span>
-              <span>{total} $</span>
+              <span> {total} $</span>
             </div>
             <div className="flex justify-between">
-              <span>Shipping: ({deliveryCurrentData.attributes.name})</span>
-              <span>{deliveryCurrentData.attributes.cost} $</span>
+              <span>Shipping: ({deliveryCurrentData?.attributes.name})</span>
+              <span>{deliveryCurrentData?.attributes.cost} $</span>
             </div>
             <div className="flex justify-between border-t-2 pt-3 mt-3">
               <span>Total:</span>
-              <h3>{total +  deliveryCurrentData.attributes.cost} $</h3>
+              <h4>{total + deliveryCurrentData?.attributes.cost} $</h4>
             </div>
           </div>
           <Link href={`/checkout/`}>
             <button className="btn w-full">
               Checkout
-              <FaAngleRight />
+              <FontAwesomeIcon icon={faAngleRight}/>
             </button>
           </Link>
         </div>

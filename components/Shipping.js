@@ -1,21 +1,17 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { useCart } from '../hooks/useCart'
-
-const methods = [
-  {
-    name: 'PickUp',
-    desc: 'Delivery to PickUp collection point',
-  },
-  {
-    name: 'Delivery',
-    desc: 'Special courier to your home',
-  }
-]
 
 export default function Shipping({ data }) {
 
   const { delivery, handleDelivery } = useCart()
+
+  useEffect(() => {
+    handleDelivery(deliveries[0].id)
+    // return () => {
+    //   cleanup
+    // }
+  }, [])
 
   const deliveries = data.deliveries.data
 

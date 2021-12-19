@@ -1,7 +1,8 @@
 import Link from "next/link"
 import ClientOnly from '../hooks/ClientOnly';
 import { useCart } from "../hooks/useCart";
-import { FaShoppingBag } from 'react-icons/fa';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
 
@@ -19,8 +20,8 @@ const Header = () => {
         <Link href="/cart">
           <a className="relative inline-block">
             <span className={`${ itemCount ? 'opacity-1 visible'  : 'opacity-0 invisible' } inline-flex absolute -top-1 -right-1 transition-all items-center justify-center px-2 py-1 font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red rounded-full`}>{itemCount}</span>
-            <FaShoppingBag className="text-white" />
-          </a>
+            <FontAwesomeIcon className="text-white" icon={faShoppingBasket} />
+          </a> 
         </Link>
       </ClientOnly>
     </header>
