@@ -6,6 +6,8 @@ import { gql, useMutation } from '@apollo/client';
 import { CREATE_ORDER } from "../apollo/queries";
 import { useRouter } from 'next/router'
 import OrderSummary from "../components/OrderSummary";
+import Paypal from "../components/Paypal";
+import ClientOnly from "../hooks/ClientOnly";
 
 function Checkout() {
 
@@ -17,7 +19,7 @@ function Checkout() {
   const [createOrder, { data, loading, error }] = useMutation(CREATE_ORDER);
 
 
-  if (itemCount == 0) {
+  if (itemCount == 0 ) {
     router.push('/cart')
   }
 
@@ -30,7 +32,7 @@ function Checkout() {
 
   if (data) {
     console.log('🚚data', data)
-    return 'The order was completed successfully.✅🚚'
+    router.push(`/order/${data.createOrder.data.attributes.code}`)
   }
 
   // add here Notices 🔔
@@ -43,7 +45,7 @@ function Checkout() {
       }
     }, [data]) */
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
 
     const { first_name, last_name, email, address, phone } = data
 
@@ -55,11 +57,11 @@ function Checkout() {
         address: address,
         phone: phone,
         items: cartItems.map((el) => ({ count: el.quantity, product: parseInt(el.id) })),
-        total: parseInt(total),
+        delivery: parseInt(delivery.id)
       }
     })
 
-    clearCart()
+    console.log('Order created. (pendding to pay..) ✔🎉')
 
   };
 
@@ -92,9 +94,12 @@ function Checkout() {
           </div>
         </div>
         <div className="space-y-6 basis-1/4">
-          <OrderSummary />
-          <h2>Payment Methods:</h2>
-          <input className="btn" type="submit" />
+          <ClientOnly>
+            <OrderSummary />
+          </ClientOnly>
+          <h2>Payment</h2>
+          <button type="submit" className="btn w-full">Place Order</button>
+          {data && <p>order create! 🎉</p>}
         </div>
       </form>
     </div>

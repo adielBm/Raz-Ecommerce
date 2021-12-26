@@ -117,9 +117,9 @@ mutation createOrder(
   $first_name: String!
   $last_name: String
   $address: String
-  $total: Int!
   $email: String
   $items: [ComponentOrderItemsInput]
+  $delivery: ID
 ) {
   createOrder(
     data: {
@@ -127,16 +127,21 @@ mutation createOrder(
       last_name: $last_name
       address: $address
       email: $email
-      total: $total
+      delivery: $delivery
       items: $items
     }
   ) {
     data {
       attributes {
+        delivery {
+          data {
+            id
+          }
+        }
+        code
         first_name
         last_name
-        total
-				... on Order {
+        ... on Order {
           items {
             count
             product {
@@ -163,6 +168,41 @@ query deliveries {
       attributes {
         name
         cost
+      }
+    }
+  }
+}
+`
+
+
+
+export const ORDER_BY_CODE = gql`
+query orderByCode($code: String) {
+  orderByCode(code: $code) {
+    data {
+      id
+      attributes {
+        address
+        email
+        code
+        total
+        status
+        last_name
+        first_name
+      }
+    }
+  }
+}
+`
+
+export const ORDER_COMPLATED =gql`
+mutation updateOrderComplate($code: String) {
+  updateOrderComplate(code: $code) {
+    data {
+      id
+      attributes {
+        status
+        address
       }
     }
   }

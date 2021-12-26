@@ -16,7 +16,7 @@ export async function getProductBySlug(slug) {
     query: Queries.PRODUCT_BY_SLUG,
     variables: { slug: slug }
   })
-  const id =  data.products.data[0].id
+  const id = data.products.data[0].id
   const product = data.products.data[0].attributes
   const productCategories = product.product_categories
   return { product, productCategories, id }
@@ -26,7 +26,25 @@ export async function getDeliveryMethods() {
   const { data } = await client.query({
     query: Queries.DELIVEIES,
   })
-  console.log('🚛', data)
   const deliveries = data.deliveries
   return { deliveries }
 }
+
+
+
+
+export async function getOrderByCode(code) {
+  return await client.query({
+    query: Queries.ORDER_BY_CODE,
+    variables: { code: code }
+  })
+}
+
+export async function updateOrderComplated(code) {
+  return await client.mutate({
+    mutation: Queries.ORDER_COMPLATED,
+    variables: { code: code }
+  })
+}
+
+
