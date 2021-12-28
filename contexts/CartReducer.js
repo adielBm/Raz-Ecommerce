@@ -15,8 +15,10 @@ export const CartReducer = (state, action) => {
       if ( !state.cartItems.find(item => item.slug === action.payload.slug)) {
         state.cartItems.push({
           ...action.payload,
-          quantity: 1
+          quantity: action.payload.countToAdd
         })
+      } else {
+        state.cartItems[state.cartItems.findIndex(item => item.slug === action.payload.slug)].quantity += action.payload.countToAdd
       }
       return {
         ...state,

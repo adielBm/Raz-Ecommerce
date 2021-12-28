@@ -3,12 +3,19 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from "../../hooks/useCart"
 import { getProductBySlug } from "../../apollo/getQueries"
+import { useState } from "react"
 
 const Product = ({ data }) => {
 
   const id = data.id
   const product = data.product
   const { addProduct } = useCart()
+  const [count, setCount] = useState(1)
+
+  const handleAddToCart = () => {
+    addProduct({ ...product, id, countToAdd: parseInt(count) })
+    setCount(1)
+  }
 
   return (
     <div className="grid md:grid-cols-2">
@@ -22,7 +29,10 @@ const Product = ({ data }) => {
         ))}
         <div>{product.content}</div>
         <div className="font-bold text-4xl">{`$ ${product.price}`}</div>
-        <button type="submit" onClick={() => addProduct({ ...product, id })} className="btn">Add to bag</button>
+        <div className="flex gap-4">
+          <button type="submit" onClick={handleAddToCart} className="btn">Add to bag</button>
+          <input value={count} onChange={e => setCount(e.target.value)} className="input-text w-20" type="number" placeholder="1" min="1" max="100" />
+        </div>
       </div>
     </div>
   )
