@@ -9,7 +9,7 @@ const Header = () => {
   const { itemCount } = useCart()
 
   return (
-    <header className="flex items-center gap-6 p-5 bg-blue">
+    <header className="flex items-center gap-6 px-8 py-6 bg-blue">
       <Link href="/" >
         <a className="basis-1/4"><img src="/logo.png"></img></a>
       </Link>

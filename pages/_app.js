@@ -7,8 +7,13 @@ import Notices from '../components/Notices'
 import NoticesContextProvider from '../contexts/NoticesContext'
 import client from '../apollo/client'
 import { ApolloProvider } from '@apollo/client'
+import Nav from '../components/Nav';
+import getYourStuff from '../hooks/getYourStuff';
+import App from "next/app"
 
-function MyApp({ Component, pageProps }) {
+function MyApp({Component, pageProps, initData}) {
+
+  console.log(initData)
 
   return (
     <CartContextProvider>
@@ -19,6 +24,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ApolloProvider client={client}>
         <Header />
+        <Nav />
         <main className="p-8">
           <NoticesContextProvider>
             <Notices />
@@ -29,6 +35,16 @@ function MyApp({ Component, pageProps }) {
       </ApolloProvider>
     </CartContextProvider>
   )
+}
+
+MyApp.getInitialProps = async (props) => {
+  const appProps = await App.getInitialProps(props)
+  const request = props.ctx.req
+  const objToReturn = { ...appProps }
+  if (!request?.url?.startsWith('/_next/data')) {
+    objToReturn['initData'] = await getYourStuff()
+  }
+  return objToReturn;
 }
 
 export default MyApp
