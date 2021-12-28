@@ -7,6 +7,7 @@ const ProductCategory = ({data}) => {
       <div>
         <h2>{data.productCategory.title}</h2>
       </div>
+      <div>{data.productCategory.content}</div>
       <ProductList products={data.products.data} />
     </div> 
   )
