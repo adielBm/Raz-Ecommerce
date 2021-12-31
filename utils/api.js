@@ -1,4 +1,4 @@
-export const API_URL = process.env.API_URL
+export const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export function getStrapiURL(path) {
   return `${API_URL}${path}`;
@@ -11,7 +11,7 @@ export async function fetchAPI(path) {
   const data = await response.json();
   return data;
 }
-
+/* 
 export async function getProductCategories() {
   const productCategories = await fetchAPI("/product-categories");
   return productCategories;
@@ -30,4 +30,4 @@ export async function getProducts() {
 export async function getProduct(slug) {
   const products = await fetchAPI(`/products?slug=${slug}`);
   return products?.[0];
-}
+} */
