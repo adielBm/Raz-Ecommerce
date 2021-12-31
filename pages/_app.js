@@ -13,9 +13,7 @@ import { getProductCategories } from '../apollo/getQueries';
 import { API_URL } from "../utils/api";
 
 function MyApp({ Component, pageProps/* , initData */ }) {
-
-  console.log(API_URL)
-
+  
   return (
     <CartContextProvider>
       <Head>
