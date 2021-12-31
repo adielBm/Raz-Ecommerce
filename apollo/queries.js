@@ -3,9 +3,21 @@ import { gql } from "@apollo/client";
 export const PRODUCTS_CATEGORIES = gql`
   query {
     productCategories {
-      id,
-      title,
-      slug,
+      data {
+        id
+        attributes {
+          slug
+          title
+          subcategories {
+            data {
+              attributes {
+                title
+                slug
+              }
+            }
+          }
+        }
+      }
     }
   }
 `;

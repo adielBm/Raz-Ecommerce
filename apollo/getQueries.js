@@ -30,9 +30,6 @@ export async function getDeliveryMethods() {
   return { deliveries }
 }
 
-
-
-
 export async function getOrderByCode(code) {
   return await client.query({
     query: Queries.ORDER_BY_CODE,
@@ -45,6 +42,13 @@ export async function updateOrderComplated(code) {
     mutation: Queries.ORDER_COMPLATED,
     variables: { code: code }
   })
+}
+
+export async function getProductCategories() {
+  const { data: { productCategories: { data } } } = await client.query({
+    query: Queries.PRODUCTS_CATEGORIES
+  })
+  return data
 }
 
 
