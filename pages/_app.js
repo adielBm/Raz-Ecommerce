@@ -8,12 +8,10 @@ import NoticesContextProvider from '../contexts/NoticesContext'
 import client from '../apollo/client'
 import { ApolloProvider } from '@apollo/client'
 import Nav from '../components/Nav';
-import getYourStuff from '../hooks/getYourStuff';
 import App from "next/app"
+import { getProductCategories } from '../apollo/getQueries';
 
-function MyApp({Component, pageProps, initData}) {
-
-  console.log(initData)
+function MyApp({ Component, pageProps/* , initData */ }) {
 
   return (
     <CartContextProvider>
@@ -24,7 +22,7 @@ function MyApp({Component, pageProps, initData}) {
       </Head>
       <ApolloProvider client={client}>
         <Header />
-        <Nav />
+        {/* <Nav items={initData} /> */}
         <main className="p-8">
           <NoticesContextProvider>
             <Notices />
@@ -37,14 +35,14 @@ function MyApp({Component, pageProps, initData}) {
   )
 }
 
-MyApp.getInitialProps = async (props) => {
+/* MyApp.getInitialProps = async (props) => {
   const appProps = await App.getInitialProps(props)
   const request = props.ctx.req
   const objToReturn = { ...appProps }
   if (!request?.url?.startsWith('/_next/data')) {
-    objToReturn['initData'] = await getYourStuff()
+    objToReturn['initData'] = await getProductCategories()
   }
   return objToReturn;
-}
+} */
 
 export default MyApp
