@@ -50,9 +50,9 @@ function Cart({ data }) {
 
   return (
     <ClientOnly>
-      <Head>
+    {/*   <Head>
         <script type="text/javascript" src="pickup.js"></script>
-      </Head>
+      </Head> */}
       <h1 className="text-center border-b-2 pb-8 mb-8">Cart</h1>
       <div className="md:flex gap-12">
         <div className="space-y-6 grow">
@@ -91,8 +91,8 @@ function Cart({ data }) {
             <FontAwesomeIcon icon={faTrash} />
           </button>
 
-          <div onClick={() => { window.PickupsSDK.onClick(); return; }} className="ups-pickups ups-pickups-48" ></div><div className="ups-pickups-info"></div>
-
+{/*           <div onClick={() => { window.PickupsSDK.onClick(); return; }} className="ups-pickups ups-pickups-48" ></div><div className="ups-pickups-info"></div>
+ */}
         </div>
 
         <div className="space-y-6 basis-1/4">
