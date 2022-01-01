@@ -1,11 +1,15 @@
 import { API_URL } from './api'
 
-export const fromImageToUrl = (image) => {
+export const fromImageToUrl = ({ data }) => {
 
-  if (!image) {
-    console.warn('This is not a Image...')
-    return "/vercel.svg"; //Or default image here
+  const image = data.attributes
+
+  // for local provider
+  if (image.provider === "local") {
+
+    return `${API_URL}${image.url}`
   }
-  return image.data.attributes.url
 
+  // for remote provider
+  return image.url
 };
