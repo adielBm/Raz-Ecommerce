@@ -3,7 +3,7 @@ module.exports = {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL
   },
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'res.cloudinary.com'],
   }
 }
 
