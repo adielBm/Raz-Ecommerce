@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import OrderSummary from "../components/OrderSummary";
 import { useEffect } from "react";
+import Head from 'next/head'
 
 function Cart({ data }) {
 
@@ -49,6 +50,9 @@ function Cart({ data }) {
 
   return (
     <ClientOnly>
+      <Head>
+        <script type="text/javascript" src="pickup.js"></script>
+      </Head>
       <h1 className="text-center border-b-2 pb-8 mb-8">Cart</h1>
       <div className="md:flex gap-12">
         <div className="space-y-6 grow">
@@ -86,6 +90,8 @@ function Cart({ data }) {
             Clear
             <FontAwesomeIcon icon={faTrash} />
           </button>
+
+          <div onClick={() => { window.PickupsSDK.onClick(); return; }} className="ups-pickups ups-pickups-48" ></div><div className="ups-pickups-info"></div>
 
         </div>
 
