@@ -10,13 +10,17 @@ export default function Shipping({ data }) {
 
   function handleDelivery2(value) {
     handleDelivery(deliveries.find(({ id }) => id === value))
-    console.log(delivery)
+  }
+
+  if (!deliveries) {
+    return 'Sorry, no shipping methods available.'
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full space-y-4">
+      <h2>Shipping</h2>
       <div className="w-full max-w-md mx-auto">
-         <RadioGroup value={delivery.id} onChange={handleDelivery2}>
+        <RadioGroup value={delivery.id} onChange={handleDelivery2}>
           <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
           <div className="space-y-2">
             {deliveries.map((method) => (
@@ -65,9 +69,7 @@ export default function Shipping({ data }) {
               </RadioGroup.Option>
             ))}
           </div>
-        </RadioGroup>  
-
-
+        </RadioGroup>
       </div>
     </div>
   )

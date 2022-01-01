@@ -7,7 +7,7 @@ const CartContextProvider = ({ children }) => {
 
   if (typeof window !== 'undefined') {
     const storage = window.localStorage.getItem('cart') === null ? [] : JSON.parse(localStorage.getItem('cart'))
-    const deliveryStorage = JSON.parse(localStorage.getItem('delivery'))
+    const deliveryStorage = localStorage.getItem('delivery') === null ? {} : JSON.parse(localStorage.getItem('delivery'))
   }
 
   const initialState = () => {
@@ -23,7 +23,7 @@ const CartContextProvider = ({ children }) => {
     return {
       cartItems: [],
       checkout: [],
-      delivery: null
+      delivery: {}
     };
   }
 

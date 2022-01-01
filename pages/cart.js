@@ -95,16 +95,9 @@ function Cart({ data }) {
  */}
         </div>
 
-        <div className="space-y-6 basis-1/4">
-          <h2>Shipping</h2>
+        <div className="space-y-8 basis-1/4">
           <Shipping data={data} />
           <OrderSummary />
-          <Link href={'/checkout/'}>
-            <button className="btn w-full">
-              Checkout
-              <FontAwesomeIcon icon={faAngleRight} />
-            </button>
-          </Link>
         </div>
       </div>
     </ClientOnly >
@@ -115,5 +108,6 @@ export default Cart;
 
 export async function getServerSideProps() {
   const data = await getDeliveryMethods()
+  console.log(data, '🎭')
   return { props: { data } }
 }
