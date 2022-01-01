@@ -70,7 +70,14 @@ export const PRODUCTS = gql`
           image {
             data {
               attributes {
+                name
+                formats
                 url
+                alternativeText
+                caption
+                size
+                provider_metadata
+                provider
               }
             }
           }
@@ -104,7 +111,14 @@ query productBySlug($slug: String) {
         image {
           data {
             attributes {
+              name
+              formats
               url
+              alternativeText
+              caption
+              size
+              provider_metadata
+              provider
             }
           }
         }
@@ -207,7 +221,7 @@ query orderByCode($code: String) {
 }
 `
 
-export const ORDER_COMPLATED =gql`
+export const ORDER_COMPLATED = gql`
 mutation updateOrderComplate($code: String) {
   updateOrderComplate(code: $code) {
     data {
