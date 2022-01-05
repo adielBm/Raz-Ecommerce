@@ -1,10 +1,16 @@
 import { PRODUCTS } from '../apollo/queries'
 import client from '../apollo/client'
-import ProductList from '../components/ProductList'
+import ProductList from '../components/Products'
+import Separator from '../components/Separator'
 
 const HomePage = ({ data }) => {
   return (
-    <ProductList products={data.products.data} />
+    <div>
+      <Separator> All Products </Separator>
+      <ProductList products={data.products.data.slice(0, 4)} />
+      <Separator> Hoddides </Separator>
+      <ProductList products={data.products.data.slice(0, 3)} />
+    </div>
   )
 }
 

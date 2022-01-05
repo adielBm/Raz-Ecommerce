@@ -1,5 +1,72 @@
 import { gql } from "@apollo/client";
 
+
+const imageData = `
+data {
+  id
+  attributes {
+    name
+    formats
+    url
+    alternativeText
+    caption
+    size
+    provider_metadata
+    provider
+  }
+}
+`
+const gallery = `
+gallery {
+  ${imageData}
+}
+`
+const image = `
+image {
+  ${imageData}
+}
+`
+
+const brand = `
+brand {
+  data {
+    id
+    attributes {
+      title
+      logo {
+        ${imageData}
+      }
+    }
+  }
+}
+`
+
+const product = `
+data {
+  id
+  attributes {
+    title
+    content
+    price
+    slug
+    ${brand}
+    publishedAt
+    ${image}
+    ${gallery}
+    product_categories {
+      data {
+        id
+        attributes {
+          title
+          slug
+        }
+      }
+    }
+  }
+}
+`
+
+
 export const PRODUCTS_CATEGORIES = gql`
   query {
     productCategories {
@@ -39,13 +106,7 @@ query ProductCategoryBySlug($slug: String!) {
               price
               slug
               publishedAt
-              image {
-                data {
-                  attributes {
-                    url
-                  }
-                }
-              }
+              ${image}
             }
           }
         }
@@ -53,45 +114,12 @@ query ProductCategoryBySlug($slug: String!) {
     }
   }
 }
-
 `;
 
 export const PRODUCTS = gql`
   query {
     products {
-    	data {
-        id
-        attributes {
-          title
-          content
-          price
-          slug
-          publishedAt
-          image {
-            data {
-              attributes {
-                name
-                formats
-                url
-                alternativeText
-                caption
-                size
-                provider_metadata
-                provider
-              }
-            }
-          }
-          product_categories {
-            data {
-              id
-              attributes {
-                title
-                slug
-              }
-            }
-          }
-        }
-      }
+      ${product}
     }
   }
 `;
@@ -100,39 +128,7 @@ export const PRODUCTS = gql`
 export const PRODUCT_BY_SLUG = gql`
 query productBySlug($slug: String) {
   products(filters: { slug: { eq: $slug } }) {
-    data {
-      id
-      attributes {
-        title
-        content
-        price
-        slug
-        publishedAt
-        image {
-          data {
-            attributes {
-              name
-              formats
-              url
-              alternativeText
-              caption
-              size
-              provider_metadata
-              provider
-            }
-          }
-        }
-        product_categories {
-          data {
-            id
-            attributes {
-              title
-              slug
-            }
-          }
-        }
-      }
-    }
+    ${product}
   }
 }
 `;
@@ -234,3 +230,37 @@ mutation updateOrderComplate($code: String) {
   }
 }
 `
+export const POSTS = gql`
+query poss {
+  posts {
+    data {
+      id
+      attributes {
+        title
+        content
+        slug
+        publishedAt
+        ${image}
+      }
+    }
+  }
+}
+`;
+
+export const POST_BY_SLUG = gql`
+query postBySlug($slug: String) {
+  posts(filters: { slug: { eq: $slug } }) {
+    data {
+      id
+      attributes {
+        title
+        content
+        slug
+        publishedAt
+        ${image}
+      }
+    }
+  }
+}
+`;
+

@@ -36,12 +36,6 @@ const OrderSummary = () => {
           <h4>{total + delivery?.attributes?.cost} $</h4>
         </div>
       </div>
-      <Link href={'/checkout/'}>
-        <button className="btn w-full">
-          Checkout
-          <FontAwesomeIcon icon={faAngleRight} />
-        </button>
-      </Link>
     </div>
   )
 }

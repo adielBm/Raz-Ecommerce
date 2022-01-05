@@ -51,4 +51,13 @@ export async function getProductCategories() {
   return data
 }
 
+export async function getPostBySlug(slug) {
+  const { data } = await client.query({
+    query: Queries.POST_BY_SLUG,
+    variables: { slug: slug }
+  })
+  const id = data.posts.data[0].id
+  const post = data.posts.data[0].attributes
+  return { post, id }
+}
 

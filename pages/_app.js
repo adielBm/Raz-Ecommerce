@@ -1,7 +1,7 @@
 import Header from '../components/Header'
 import Head from 'next/head'
 import Footer from '../components/Footer'
-import '../styles/globals.css';
+import '../styles/globals.scss';
 import CartContextProvider from '../contexts/CartContext'
 import Notices from '../components/Notices'
 import NoticesContextProvider from '../contexts/NoticesContext'
@@ -12,8 +12,8 @@ import App from "next/app"
 import { getProductCategories } from '../apollo/getQueries';
 import { API_URL } from "../utils/api";
 
-function MyApp({ Component, pageProps/* , initData */ }) {
-  
+function MyApp({ Component, pageProps }) {
+    
   return (
     <CartContextProvider>
       <Head>
@@ -23,8 +23,11 @@ function MyApp({ Component, pageProps/* , initData */ }) {
       </Head>
       <ApolloProvider client={client}>
         <Header />
-        {/* <Nav items={initData} /> */}
-        <main className="p-8">
+        {/* 
+        TODO: fix it in react 18 using React Server Component.  
+        <Nav items={initData} /> 
+        */}
+        <main className="py-8 paddingscreen">
           <NoticesContextProvider>
             <Notices />
           </NoticesContextProvider>
@@ -35,15 +38,5 @@ function MyApp({ Component, pageProps/* , initData */ }) {
     </CartContextProvider>
   )
 }
-
-/* MyApp.getInitialProps = async (props) => {
-  const appProps = await App.getInitialProps(props)
-  const request = props.ctx.req
-  const objToReturn = { ...appProps }
-  if (!request?.url?.startsWith('/_next/data')) {
-    objToReturn['initData'] = await getProductCategories()
-  }
-  return objToReturn;
-} */
 
 export default MyApp
