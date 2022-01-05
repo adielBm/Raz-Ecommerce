@@ -2,9 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap');
+
+@import './markdown.scss';
 
 @layer components {
+
+  .paddingscreen {
+    @apply px-4 sm:px-8 md:px-16;
+  }
+
   .btn {
     @apply cursor-pointer gap-2 py-2 px-4 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg;
   }
@@ -21,7 +28,6 @@
     @apply rounded-lg shadow-sm outline-none appearance-none border w-full py-2 px-3 text-gray-700 leading-tight;
   }
 
-
 }
 
 @layer base {
@@ -31,14 +37,14 @@
   }
   h1 {
     @apply text-6xl;
-    @apply font-bold italic;
+    @apply font-bold;
   }
   h2 {
-    @apply text-4xl italic;
+    @apply text-4xl;
     @apply font-bold;
   }
   h3 {
-    @apply text-2xl italic;
+    @apply text-2xl;
     @apply font-bold;
   }
 }

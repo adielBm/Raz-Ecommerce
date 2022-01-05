@@ -5,10 +5,13 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
   theme: {
     extend: {
       fontFamily: {
-        serif: ['Lato', ...defaultTheme.fontFamily.sans],
+        serif: ['Assistant', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         blue: {
@@ -50,7 +53,6 @@ module.exports = {
           '800': '#103724',
           '900': '#030B08'
         },
-        
       }
     },
   }
