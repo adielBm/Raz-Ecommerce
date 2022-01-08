@@ -15,6 +15,7 @@ import "swiper/css/thumbs"
 
 // import Swiper core and required modules
 import SwiperCore, { FreeMode, Navigation, Thumbs } from 'swiper';
+import { Markdown } from "../../components/Markdown"
 SwiperCore.use([FreeMode, Navigation, Thumbs]);
 
 const Product = ({ data }) => {
@@ -60,7 +61,8 @@ const Product = ({ data }) => {
   }
 
   return (
-    <div className="grid md:grid-cols-2 gap-12">
+    <div className="items-start grid md:grid-cols-2 gap-12">
+
       <div className="w-full rounded-lg overflow-hidden shadow-lg border-blue-300 border-2 cursor-pointer" >
         <Swiper
           className="w-full"
@@ -85,7 +87,9 @@ const Product = ({ data }) => {
           </Swiper>
         }
       </div>
+
       <div className="grid content-start gap-5 justify-items-start">
+
         <div>
           {brand && <Image
             title={brand.title} alt={brand.title}
@@ -93,18 +97,25 @@ const Product = ({ data }) => {
             src={getStrapiMedia(brand.logo.data)}
           />
           }
-
         </div>
+
         <h1>{product.title}</h1>
+
         {data.productCategories.data.map((c) => (
           <Link key={c.id} href={`/product-category/${c.attributes.slug}`}><a><small>{c.attributes.title}</small></a></Link>
         ))}
-        <div>{product.content}</div>
+
+        <Markdown>
+          {product.content}
+        </Markdown>
+
         <div className="font-bold text-4xl">{`$ ${product.price}`}</div>
+
         <div className="flex gap-4">
           <button type="submit" onClick={handleAddToCart} className="btn">Add to bag</button>
           <input value={count} onChange={e => setCount(e.target.value)} className="input-text w-20" type="number" placeholder="1" min="1" max="100" />
         </div>
+
       </div>
     </div>
   )

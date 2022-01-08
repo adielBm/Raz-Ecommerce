@@ -17,8 +17,8 @@ const Product = ({ s: { attributes: product } }) => {
           />
         </div>
         <div className="p-3 flex-1">
-          <h3 className="text-gray-700">{product.title}</h3>
-          <p className="font-medium text-gray-900">{product.price}</p>
+          <div className="text-blue-500 text-2xl">{product.title}</div>
+          <div className="text-blue-300">{product.price}</div>
         </div>
 
         <div className="mr-0 my-auto">

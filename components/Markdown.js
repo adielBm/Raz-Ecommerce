@@ -37,7 +37,7 @@ export const Markdown = ({ children: markdown }) => {
 
   return (
     <ReactMarkdown
-      className="prose prose-blue max-w-none"
+      className="prose-xl prose-blue max-w-none"
       children={markdown}
       components={MarkdownComponents}
     />

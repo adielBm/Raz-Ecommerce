@@ -1,4 +1,3 @@
-import Header from '../components/Header'
 import Head from 'next/head'
 import Footer from '../components/Footer'
 import '../styles/globals.scss';
@@ -11,6 +10,7 @@ import Nav from '../components/Nav';
 import App from "next/app"
 import { getProductCategories } from '../apollo/getQueries';
 import { API_URL } from "../utils/api";
+import Header from '../components/Header';
 
 function MyApp({ Component, pageProps }) {
     

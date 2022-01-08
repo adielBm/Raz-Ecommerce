@@ -7,7 +7,7 @@ import { Markdown } from "../../components/Markdown"
 const Post = ({ data }) => {
 
   return (
-    <div className="box p-20 lg:w-2/3 ">
+    <div className="box p-6 sm:p-20 lg:w-2/3 ">
       <h1>{data.post.title}</h1>
       <div className={`h-96 w-full relative rounded-lg overflow-hidden my-6`}>
         <Image
