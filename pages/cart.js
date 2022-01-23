@@ -1,4 +1,3 @@
-import { useCart } from "../hooks/useCart";
 import ClientOnly from '../hooks/ClientOnly';
 import Link from 'next/link'
 import { getStrapiMedia } from "../utils"
@@ -8,8 +7,9 @@ import { getDeliveryMethods } from '../apollo/getQueries'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import OrderSummary from "../components/OrderSummary";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Head from 'next/head'
+import { CartContext } from "../contexts/cart/CartContext";
 
 function Cart({ data }) {
 
@@ -18,26 +18,24 @@ function Cart({ data }) {
     decrease,
     clearCart,
     removeProduct,
-    cartItems,
-    total,
-    itemCount,
-    handleCheckout,
-    handleDelivery,
+    items,
+    count,
+    setDelivery,
     delivery
-  } = useCart()
+  } = useContext(CartContext)
 
   const deliveries = data.deliveries.data
 
   useEffect(() => {
     if (delivery == null) {
-      handleDelivery(deliveries[0])
+      setDelivery(deliveries[0])
     }
     // return () => {
     //   cleanup
     // }
   }, [])
 
-  if (!itemCount) return (
+  if (!count) return (
     <ClientOnly>
       <h1>Cart</h1>
       <div>
@@ -58,7 +56,7 @@ function Cart({ data }) {
         <div className="space-y-6 grow">
           <h2>Your Cart Items</h2>
           <div className="grid gap-4">
-            {cartItems.map((product) => (
+            {items.map((product) => (
               <div key={product.id} className="flex items-center gap-8 rounded-lg shadow-md p-4 bg-white">
                 <div className="h-16 w-16 rounded-lg overflow-hidden relative">
                   <Image src={getStrapiMedia(product.image.data)} layout="fill" objectFit="cover" />
@@ -91,8 +89,10 @@ function Cart({ data }) {
             <FontAwesomeIcon icon={faTrash} />
           </button>
 
-          {/*           <div onClick={() => { window.PickupsSDK.onClick(); return; }} className="ups-pickups ups-pickups-48" ></div><div className="ups-pickups-info"></div>
- */}
+          {/* 
+          <div onClick={() => { window.PickupsSDK.onClick(); return; }} className="ups-pickups ups-pickups-48" ></div>
+          <div className="ups-pickups-info"></div> 
+          */}
         </div>
 
         <div className="space-y-8 basis-1/4">

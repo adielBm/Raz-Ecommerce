@@ -1,24 +1,24 @@
 import { useContext, useEffect } from "react";
 import { NoticesContext } from "../contexts/NoticesContext";
-import { useCart } from "../hooks/useCart";
 import usePrevious from "../hooks/usePrevious";
 import Toast from "./Toast"
+import { CartContext } from "../contexts/cart/CartContext";
 
 function Notices() {
 
   const Notices = useContext(NoticesContext)
 
   // Get the previous value (was passed into hook on last render)
-  const { cartItems } = useCart()
-  const prevCartItems = usePrevious(cartItems.length);
+  const { items } = useContext(CartContext)
+  const prevItems = usePrevious(items.length);
 
   useEffect(() => {
-    if (cartItems.length > prevCartItems) {
+    if (items.length > prevItems) {
       Notices.addNotice({
-        msg: `The product ${cartItems.at(-1).title} has been successfully added to your shopping cart.`
+        msg: `The product ${items.at(-1).title} has been successfully added to your shopping cart.`
       })
     }
-  }, [cartItems.length])
+  }, [items.length])
 
   return (
     <>

@@ -1,20 +1,28 @@
-import router from "next/router"
-import { useState } from "react"
+import router, { useRouter } from "next/router"
+import { useContext, useState } from "react"
 import { getOrderByCode, updateOrderComplated } from "../../apollo/getQueries"
 import Paypal from "../../components/Paypal"
 import ThankYou from "../../components/ThankYou"
-import { useCart } from "../../hooks/useCart"
+import { CartContext } from "../../contexts/cart/CartContext"
 
 const Order = ({ data }) => {
 
-  const { cartItems, total, clearCart, itemCount, delivery } = useCart()
+  const { clearCart } = useContext(CartContext)
+
+  // function for refresh data of getServerSideProps 
+  const router = useRouter()
+  const refreshData = () => router.replace(router.asPath);
+
 
   const [payed, setPayed] = useState(false)
 
   const { data: { orderByCode: { data: { attributes: order } } } } = data
 
+  console.log(order);
+
   const handldePaymentSuccess = async () => {
     await updateOrderComplated(order.code)
+    refreshData()
     setPayed(true)
     clearCart()
   }

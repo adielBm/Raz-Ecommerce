@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Footer from '../components/Footer'
 import '../styles/globals.scss';
-import CartContextProvider from '../contexts/CartContext'
 import Notices from '../components/Notices'
 import NoticesContextProvider from '../contexts/NoticesContext'
 import client from '../apollo/client'
@@ -11,6 +10,7 @@ import App from "next/app"
 import { getProductCategories } from '../apollo/getQueries';
 import { API_URL } from "../utils/api";
 import Header from '../components/Header';
+import CartContextProvider from '../contexts/cart/CartContext';
 
 function MyApp({ Component, pageProps }) {
     

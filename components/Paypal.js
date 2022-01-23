@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useState } from 'react';
 import { PAYPAL_CLIENT_ID } from '../utils/constants';
-import { useCart } from '../hooks/useCart';
+import { CartContext } from '../contexts/cart/CartContext';
 
 export default function Paypal({onSuccess}) {
 
@@ -10,7 +10,7 @@ export default function Paypal({onSuccess}) {
   const [paypalErrorMessage, setPaypalErrorMessage] = useState("");
   const [orderID, setOrderID] = useState(false);
   const [billingDetails, setBillingDetails] = useState("");
-  const { cartItems, total, clearCart, itemCount, delivery } = useCart()
+  const { items, total, clearCart, itemCount, delivery } = useContext(CartContext)
 
   // creates a paypal order
   const createOrder = (data, actions) => {

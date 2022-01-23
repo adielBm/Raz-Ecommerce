@@ -1,21 +1,9 @@
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useCart } from "../hooks/useCart"
-import Link from 'next/link'
+import { useContext } from "react"
+import { CartContext } from "../contexts/cart/CartContext"
 
 const OrderSummary = () => {
 
-  const {
-    increase,
-    decrease,
-    clearCart,
-    removeProduct,
-    cartItems,
-    total,
-    itemCount,
-    handleCheckout,
-    delivery
-  } = useCart()
+  const { delivery, total, count } = useContext(CartContext)
 
   if (Object.keys(delivery).length === 0 && delivery.constructor === Object) return null
 
@@ -24,7 +12,7 @@ const OrderSummary = () => {
       <h2>Order summary</h2>
       <div className="box p-6">
         <div className="flex justify-between">
-          <span>Cost of products: ({itemCount})</span>
+          <span>Cost of products: ({count})</span>
           <span> {total} $</span>
         </div>
         <div className="flex justify-between">

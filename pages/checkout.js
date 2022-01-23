@@ -1,25 +1,26 @@
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { NoticesContext } from "../contexts/NoticesContext";
-import { useCart } from "../hooks/useCart";
 import { gql, useMutation } from '@apollo/client';
 import { CREATE_ORDER } from "../apollo/queries";
 import { useRouter } from 'next/router'
 import OrderSummary from "../components/OrderSummary";
 import Paypal from "../components/Paypal";
 import ClientOnly from "../hooks/ClientOnly";
+import { CartContext } from "../contexts/cart/CartContext";
 
 function Checkout() {
 
   const router = useRouter()
 
-  const { cartItems, total, clearCart, itemCount, delivery } = useCart()
+  const { items, total, clearCart, count, delivery } = useContext(CartContext)
+
   const Notices = useContext(NoticesContext)
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [createOrder, { data, loading, error }] = useMutation(CREATE_ORDER);
 
 
-  if (itemCount == 0 ) {
+  if (count == 0) {
     router.push('/cart')
   }
 
@@ -56,7 +57,7 @@ function Checkout() {
         email: email,
         address: address,
         phone: phone,
-        items: cartItems.map((el) => ({ count: el.quantity, product: parseInt(el.id) })),
+        items: items.map((el) => ({ count: el.quantity, product: parseInt(el.id) })),
         delivery: parseInt(delivery.id)
       }
     })

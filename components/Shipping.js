@@ -1,15 +1,15 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { RadioGroup } from '@headlessui/react'
-import { useCart } from '../hooks/useCart'
+import { CartContext } from '../contexts/cart/CartContext'
 
 export default function Shipping({ data }) {
 
-  const { delivery, handleDelivery } = useCart()
+  const { delivery, setDelivery } = useContext(CartContext)
 
   const deliveries = data.deliveries.data
 
-  function handleDelivery2(value) {
-    handleDelivery(deliveries.find(({ id }) => id === value))
+  function handleDelivery(value) {
+    setDelivery(deliveries.find(({ id }) => id === value))
   }
 
   if (!deliveries) {
@@ -20,7 +20,7 @@ export default function Shipping({ data }) {
     <div className="w-full space-y-4">
       <h2>Shipping</h2>
       <div className="w-full max-w-md mx-auto">
-        <RadioGroup value={delivery.id} onChange={handleDelivery2}>
+        <RadioGroup value={delivery.id} onChange={handleDelivery}>
           <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
           <div className="space-y-2">
             {deliveries.map((method) => (
