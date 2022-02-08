@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import Link from "next/link"
+import Link from 'next/link'
 
 export default function Item({ data: { attributes } }) {
-
-  const [showMessage, setShowMessage] = useState(false);
+  const [showMessage, setShowMessage] = useState(false)
 
   if (attributes.subcategories.data.length < 1) return null
 
@@ -13,9 +12,13 @@ export default function Item({ data: { attributes } }) {
       onMouseEnter={() => setShowMessage(true)}
       onMouseLeave={() => setShowMessage(false)}
     >
-      <Link href={`/product-category/${attributes.slug}/`} >
-        <a className={` ${showMessage ? `bg-white text-blue-500` : `bg-blue-300 text-white`} 
-          transition ease-in-out cursor-pointer hover: rounded-t-lg h-8 flex items-center px-4`}>
+      <Link href={`/product-category/${attributes.slug}/`}>
+        <a
+          className={` ${
+            showMessage ? `bg-white text-blue-500` : `bg-blue-300 text-white`
+          } 
+          hover: flex h-8 cursor-pointer items-center rounded-t-lg px-4 transition ease-in-out`}
+        >
           {attributes.title}
         </a>
       </Link>
@@ -30,10 +33,13 @@ export default function Item({ data: { attributes } }) {
           variant="primary"
           onClose={() => setShowMessage(false)}
         >
-          <div className="bg-white shadow-md p-6 grid grid-cols-2 gap-4 rounded-b-lg">
+          <div className="grid grid-cols-2 gap-4 rounded-b-lg bg-white p-6 shadow-md">
             {attributes.subcategories.data.map(({ attributes }) => (
-              <Link key={attributes.slug} href={`/product-category/${attributes.slug}/`}>
-                <a className="p-2 rounded-lg hover:bg-blue-100 transition-all ">
+              <Link
+                key={attributes.slug}
+                href={`/product-category/${attributes.slug}/`}
+              >
+                <a className="rounded-lg p-2 transition-all hover:bg-blue-100 ">
                   {attributes.title}
                 </a>
               </Link>
@@ -44,4 +50,3 @@ export default function Item({ data: { attributes } }) {
     </div>
   )
 }
-
