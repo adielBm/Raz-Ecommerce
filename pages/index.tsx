@@ -2,11 +2,17 @@ import { PRODUCTS } from '../apollo/queries'
 import client from '../apollo/client'
 import ProductList from '../components/Products'
 import Separator from '../components/Separator'
+import type { GetServerSideProps, NextPage } from 'next'
+import axios from 'axios'
 
-const HomePage = ({ data }) => {
+type Props = {
+  data: any
+}
+
+const HomePage: NextPage = ({ data }: Props) => {
   return (
     <div>
-      <Separator> All Products </Separator>
+      <Separator> Products </Separator>
       <ProductList products={data.products.data.slice(0, 4)} />
       <Separator> Hoddides </Separator>
       <ProductList products={data.products.data.slice(0, 3)} />
@@ -14,9 +20,9 @@ const HomePage = ({ data }) => {
   )
 }
 
-export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: PRODUCTS
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data }: any = await client.query({
+    query: PRODUCTS,
   })
   return { props: { data } }
 }

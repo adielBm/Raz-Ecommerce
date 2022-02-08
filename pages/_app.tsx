@@ -1,19 +1,18 @@
 import Head from 'next/head'
 import Footer from '../components/Footer'
-import '../styles/globals.scss';
+import '../styles/globals.scss'
 import Notices from '../components/Notices'
 import NoticesContextProvider from '../contexts/NoticesContext'
 import client from '../apollo/client'
 import { ApolloProvider } from '@apollo/client'
-import Nav from '../components/Nav';
-import App from "next/app"
-import { getProductCategories } from '../apollo/getQueries';
-import { API_URL } from "../utils/api";
-import Header from '../components/Header';
-import CartContextProvider from '../contexts/cart/CartContext';
+import Nav from '../components/Nav'
+import type { AppProps } from 'next/app'
+import { getProductCategories } from '../apollo/getQueries'
+import { API_URL } from '../utils/api'
+import Header from '../components/Header'
+import CartContextProvider from '../contexts/cart/CartContext'
 
-function MyApp({ Component, pageProps }) {
-    
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <CartContextProvider>
       <Head>
@@ -27,7 +26,7 @@ function MyApp({ Component, pageProps }) {
         TODO: fix it in react 18 using React Server Component.  
         <Nav items={initData} /> 
         */}
-        <main className="py-8 paddingscreen">
+        <main className="paddingscreen py-8">
           <NoticesContextProvider>
             <Notices />
           </NoticesContextProvider>
