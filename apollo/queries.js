@@ -1,5 +1,4 @@
-import { gql } from "@apollo/client";
-
+import { gql } from '@apollo/client'
 
 const imageData = `
 data {
@@ -47,7 +46,15 @@ data {
   attributes {
     title
     content
+    summary {
+      row
+    }
     price
+    prop {
+      id
+      value
+      key
+    }
     slug
     ${brand}
     publishedAt
@@ -65,7 +72,6 @@ data {
   }
 }
 `
-
 
 export const PRODUCTS_CATEGORIES = gql`
   query {
@@ -87,7 +93,7 @@ export const PRODUCTS_CATEGORIES = gql`
       }
     }
   }
-`;
+`
 
 export const PRODUCTS_CATEGORY_BY_SLUG = gql`
 query ProductCategoryBySlug($slug: String!) {
@@ -114,7 +120,7 @@ query ProductCategoryBySlug($slug: String!) {
     }
   }
 }
-`;
+`
 
 export const PRODUCTS = gql`
   query {
@@ -122,8 +128,7 @@ export const PRODUCTS = gql`
       ${product}
     }
   }
-`;
-
+`
 
 export const PRODUCT_BY_SLUG = gql`
 query productBySlug($slug: String) {
@@ -131,104 +136,100 @@ query productBySlug($slug: String) {
     ${product}
   }
 }
-`;
-
+`
 
 export const CREATE_ORDER = gql`
-mutation createOrder(
-  $first_name: String!
-  $last_name: String
-  $address: String
-  $email: String
-  $items: [ComponentOrderItemsInput]
-  $delivery: ID
-) {
-  createOrder(
-    data: {
-      first_name: $first_name
-      last_name: $last_name
-      address: $address
-      email: $email
-      delivery: $delivery
-      items: $items
-    }
+  mutation createOrder(
+    $first_name: String!
+    $last_name: String
+    $address: String
+    $email: String
+    $items: [ComponentOrderItemsInput]
+    $delivery: ID
   ) {
-    data {
-      attributes {
-        delivery {
-          data {
-            id
+    createOrder(
+      data: {
+        first_name: $first_name
+        last_name: $last_name
+        address: $address
+        email: $email
+        delivery: $delivery
+        items: $items
+      }
+    ) {
+      data {
+        attributes {
+          delivery {
+            data {
+              id
+            }
           }
-        }
-        code
-        first_name
-        last_name
-        ... on Order {
-          items {
-            count
-            product {
-              data {
-                id
+          code
+          first_name
+          last_name
+          ... on Order {
+            items {
+              count
+              product {
+                data {
+                  id
+                }
               }
             }
           }
+          address
+          email
         }
-        address
-        email
       }
     }
   }
-}
-`;
-
-
-export const DELIVEIES = gql`
-query deliveries {
-  deliveries {
-    data {
-      id
-      attributes {
-        name
-        cost
-      }
-    }
-  }
-}
 `
 
-
-
-export const ORDER_BY_CODE = gql`
-query orderByCode($code: String) {
-  orderByCode(code: $code) {
-    data {
-      id
-      attributes {
-        address
-        email
-        code
-        total
-        status
-        last_name
-        first_name
+export const DELIVEIES = gql`
+  query deliveries {
+    deliveries {
+      data {
+        id
+        attributes {
+          name
+          cost
+        }
       }
     }
   }
-}
+`
+
+export const ORDER_BY_CODE = gql`
+  query orderByCode($code: String) {
+    orderByCode(code: $code) {
+      data {
+        id
+        attributes {
+          address
+          email
+          code
+          total
+          status
+          last_name
+          first_name
+        }
+      }
+    }
+  }
 `
 
 export const ORDER_COMPLATED = gql`
-mutation updateOrderComplate($code: String) {
-  updateOrderComplate(code: $code) {
-    data {
-      id
-      attributes {
-        status
-        address
+  mutation updateOrderComplate($code: String) {
+    updateOrderComplate(code: $code) {
+      data {
+        id
+        attributes {
+          status
+          address
+        }
       }
     }
   }
-}
 `
 export const POSTS = gql`
 query poss {
@@ -245,7 +246,7 @@ query poss {
     }
   }
 }
-`;
+`
 
 export const POST_BY_SLUG = gql`
 query postBySlug($slug: String) {
@@ -262,5 +263,4 @@ query postBySlug($slug: String) {
     }
   }
 }
-`;
-
+`
