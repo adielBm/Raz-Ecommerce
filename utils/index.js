@@ -1,18 +1,23 @@
 export function truncate(str, no_words) {
-  return str.split(" ").splice(0, no_words).join(" ");
+  return str.split(' ').splice(0, no_words).join(' ')
 }
+
+export function splitByCommaa(str) {
+  return str.split(',').map((r, i, a) => (`${r.trim()}${i + 1 !== a.length ? `, ` : ''}`))
+}
+
 
 export function getStrapiMedia({ attributes }) {
   const { url, provider } = attributes
-  const imageUrl = url.startsWith("/") ? getStrapiURL(url) : url
+  const imageUrl = url.startsWith('/') ? getStrapiURL(url) : url
   return imageUrl
 }
 
-export function getStrapiURL(path = "") {
+export function getStrapiURL(path = '') {
   return `${process.env.NEXT_PUBLIC_API_URL}${path}`
 }
 
-// Local Storage 
+// Local Storage
 export const setLocalStorage = (contextName, contextState) => {
   for (const [key, value] of Object.entries(contextState)) {
     localStorage.setItem(`${contextName}:${key}`, JSON.stringify(value))
