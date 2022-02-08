@@ -4,20 +4,20 @@ import ReactMarkdown from 'react-markdown'
 import { getStrapiMedia } from '../utils'
 import { getStrapiURL } from '../utils/api'
 
-
 export const Markdown = ({ children: markdown }) => {
-
   const imagesTags = (paragraph) => {
     const { node } = paragraph
 
-    if (node.children[0].tagName === "img" ) {
+    if (node.children[0].tagName === 'img') {
       const image = node.children[0]
-      const alt = image.properties.alt?.replace(/ *\{[^)]*\} */g, "")
-      const isPriority = image.properties.alt?.toLowerCase().includes('{priority}')
+      const alt = image.properties.alt?.replace(/ *\{[^)]*\} */g, '')
+      const isPriority = image.properties.alt
+        ?.toLowerCase()
+        .includes('{priority}')
       const metaWidth = image.properties.alt.match(/{([^}]+)x/)
       const metaHeight = image.properties.alt.match(/x([^}]+)}/)
-      const width = metaWidth ? metaWidth[1] : "700"
-      const height = metaHeight ? metaHeight[1] : "700"
+      const width = metaWidth ? metaWidth[1] : '700'
+      const height = metaHeight ? metaHeight[1] : '700'
 
       return (
         <Image
@@ -35,7 +35,7 @@ export const Markdown = ({ children: markdown }) => {
 
   const MarkdownComponents = {
     p: imagesTags,
-    a: imagesTags
+    a: imagesTags,
   }
 
   return (
@@ -46,7 +46,3 @@ export const Markdown = ({ children: markdown }) => {
     />
   )
 }
-
-
-
-

@@ -5,7 +5,6 @@ import client from '../../apollo/client'
 import { POSTS } from '../../apollo/queries'
 
 const Blog = ({ data }) => {
-
   return (
     <div>
       <h1>Blog Lock</h1>
@@ -16,7 +15,7 @@ const Blog = ({ data }) => {
 
 export async function getServerSideProps() {
   const { data } = await client.query({
-    query: POSTS
+    query: POSTS,
   })
   return { props: { data } }
 }

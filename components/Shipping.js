@@ -3,7 +3,6 @@ import { RadioGroup } from '@headlessui/react'
 import { CartContext } from '../contexts/cart/CartContext'
 
 export default function Shipping({ data }) {
-
   const { delivery, setDelivery } = useContext(CartContext)
 
   const deliveries = data.deliveries.data
@@ -19,7 +18,7 @@ export default function Shipping({ data }) {
   return (
     <div className="w-full space-y-4">
       <h2>Shipping</h2>
-      <div className="w-full max-w-md mx-auto">
+      <div className="mx-auto w-full max-w-md">
         <RadioGroup value={delivery.id} onChange={handleDelivery}>
           <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
           <div className="space-y-2">
@@ -28,31 +27,33 @@ export default function Shipping({ data }) {
                 key={method.id}
                 value={method.id}
                 className={({ active, checked }) =>
-                  `${active
-                    ? 'ring-2 ring-offset-2 ring-offset-sky-300 ring-white ring-opacity-60'
-                    : ''
+                  `${
+                    active
+                      ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300'
+                      : ''
                   }
-                  ${checked ? 'bg-blue-400 text-white' : 'bg-white'
-                  }
-                  transition-all relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`
+                  ${checked ? 'bg-blue-400 text-white' : 'bg-white'}
+                  relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md transition-all focus:outline-none`
                 }
               >
                 {({ active, checked }) => (
                   <>
-                    <div className="flex items-center justify-between w-full">
+                    <div className="flex w-full items-center justify-between">
                       <div className="flex items-center">
                         <div>
                           <RadioGroup.Label
                             as="p"
-                            className={`font-medium  ${checked ? 'text-white' : 'text-gray-900'
-                              }`}
+                            className={`font-medium  ${
+                              checked ? 'text-white' : 'text-gray-900'
+                            }`}
                           >
                             {method.attributes.name}
                           </RadioGroup.Label>
                           <RadioGroup.Description
                             as="span"
-                            className={`inline text-sm ${checked ? 'text-sky-100' : 'text-blue-500'
-                              }`}
+                            className={`inline text-sm ${
+                              checked ? 'text-sky-100' : 'text-blue-500'
+                            }`}
                           >
                             <span>{method.attributes.cost}</span>
                           </RadioGroup.Description>
@@ -60,7 +61,7 @@ export default function Shipping({ data }) {
                       </div>
                       {checked && (
                         <div className="flex-shrink-0 text-white">
-                          <CheckIcon className="w-6 h-6" />
+                          <CheckIcon className="h-6 w-6" />
                         </div>
                       )}
                     </div>
@@ -89,5 +90,3 @@ function CheckIcon(props) {
     </svg>
   )
 }
-
-

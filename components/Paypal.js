@@ -1,16 +1,16 @@
 import React, { useContext } from 'react'
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useState } from 'react';
-import { PAYPAL_CLIENT_ID } from '../utils/constants';
-import { CartContext } from '../contexts/cart/CartContext';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
+import { useState } from 'react'
+import { PAYPAL_CLIENT_ID } from '../utils/constants'
+import { CartContext } from '../contexts/cart/CartContext'
 
-export default function Paypal({onSuccess}) {
-
-  const [succeeded, setSucceeded] = useState(false);
-  const [paypalErrorMessage, setPaypalErrorMessage] = useState("");
-  const [orderID, setOrderID] = useState(false);
-  const [billingDetails, setBillingDetails] = useState("");
-  const { items, total, clearCart, itemCount, delivery } = useContext(CartContext)
+export default function Paypal({ onSuccess }) {
+  const [succeeded, setSucceeded] = useState(false)
+  const [paypalErrorMessage, setPaypalErrorMessage] = useState('')
+  const [orderID, setOrderID] = useState(false)
+  const [billingDetails, setBillingDetails] = useState('')
+  const { items, total, clearCart, itemCount, delivery } =
+    useContext(CartContext)
 
   // creates a paypal order
   const createOrder = (data, actions) => {
@@ -25,37 +25,36 @@ export default function Paypal({onSuccess}) {
         ],
         // remove the applicaiton_context object if you need your users to add a shipping address
         application_context: {
-          shipping_preference: "NO_SHIPPING",
+          shipping_preference: 'NO_SHIPPING',
         },
       })
       .then((orderID) => {
-        setOrderID(orderID);
-        return orderID;
-      });
-  };
-
+        setOrderID(orderID)
+        return orderID
+      })
+  }
 
   // handles when a payment is confirmed for paypal
   const onApprove = async (data, actions) => {
     await actions.order.capture().then(function (details) {
-      const { payer } = details;
-      setBillingDetails(payer);
-      setSucceeded(true);
+      const { payer } = details
+      setBillingDetails(payer)
+      setSucceeded(true)
     })
-    
+
     console.log('payment is confirmed for paypal 💰✅')
     onSuccess()
-  };
+  }
   // handles payment errors
   const onError = (data, actions) => {
-    setPaypalErrorMessage("Something went wrong with your payment");
+    setPaypalErrorMessage('Something went wrong with your payment')
   }
 
   const initialOptions = {
-    "client-id": PAYPAL_CLIENT_ID.clientId,
-    currency: "USD",
-    intent: "capture",
-  };
+    'client-id': PAYPAL_CLIENT_ID.clientId,
+    currency: 'USD',
+    intent: 'capture',
+  }
 
   return (
     <PayPalScriptProvider options={initialOptions}>

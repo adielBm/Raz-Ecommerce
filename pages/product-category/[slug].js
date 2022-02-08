@@ -1,7 +1,7 @@
-import { getProductsCategoryBySlug } from "../../apollo/getQueries";
-import ProductList from "../../components/ProductList"
+import { getProductsCategoryBySlug } from '../../apollo/getQueries'
+import ProductList from '../../components/ProductList'
 
-const ProductCategory = ({data}) => {
+const ProductCategory = ({ data }) => {
   return (
     <div>
       <div>
@@ -9,7 +9,7 @@ const ProductCategory = ({data}) => {
       </div>
       <div>{data.productCategory.content}</div>
       <ProductList products={data.products.data} />
-    </div> 
+    </div>
   )
 }
 
