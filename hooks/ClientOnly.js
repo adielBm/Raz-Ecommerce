@@ -1,20 +1,15 @@
-import React from "react";
+import React from 'react'
 
 const ClientOnly = ({ children, ...delegated }) => {
-
-  const [hasMounted, setHasMounted] = React.useState(false);
+  const [hasMounted, setHasMounted] = React.useState(false)
 
   React.useEffect(() => {
-    setHasMounted(true);
-  }, []);
+    setHasMounted(true)
+  }, [])
 
   if (!hasMounted) return null
 
-  return (
-    <React.Fragment {...delegated}>
-      {children}
-    </React.Fragment>
-  );
+  return <React.Fragment {...delegated}>{children}</React.Fragment>
 }
 
 export default ClientOnly

@@ -7,27 +7,25 @@
 @import './markdown.scss';
 
 @layer components {
-
   .paddingscreen {
     @apply px-4 sm:px-8 md:px-16;
   }
 
   .btn {
-    @apply cursor-pointer gap-2 py-2 px-4 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg;
+    @apply flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-red-600 py-2 px-4 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-red-200;
   }
 
   .btn-icon {
-    @apply transition ease-in duration-200 flex justify-center items-center rounded-full p-0 w-8 h-8 bg-white shadow-none hover:shadow-md hover:bg-blue-100 text-blue-400;
+    @apply flex h-8 w-8 items-center justify-center rounded-full bg-white p-0 text-blue-400 shadow-none transition duration-200 ease-in hover:bg-blue-100 hover:shadow-md;
   }
 
   .box {
-    @apply bg-white rounded-lg shadow-md overflow-hidden;
+    @apply overflow-hidden rounded-lg bg-white shadow-md;
   }
 
   .input-text {
-    @apply rounded-lg shadow-sm outline-none appearance-none border w-full py-2 px-3 text-gray-700 leading-tight;
+    @apply w-full appearance-none rounded-lg border py-2 px-3 leading-tight text-gray-700 shadow-sm outline-none;
   }
-
 }
 
 @layer base {
@@ -53,8 +51,6 @@
   width: 1.3rem;
   height: 1.3rem;
 }
-
-
 
 .alert-enter {
   opacity: 0;
